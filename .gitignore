@@ -70,4 +70,14 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
-/MobileGame/Temp/UnityLockfile
+#------------------------------------------------
+/Temp/UnityLockfile
+
+/Library/ArtifactDB
+/Library/CurrentLayout-default.dwlt
+/Library/PackageManager/ProjectCache
+/Library/PackageManager/ProjectCache.md5
+/Library/SceneVisibilityState.asset
+/Library/ShaderCache/EditorEncounteredVariants
+/Library/SourceAssetDB
+/Library/StateCache/SceneView/8c/8cd7c613bf844de3b80696e27a479d5e.json
