@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class SelectBuildingScript : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class SelectBuildingScript : MonoBehaviour
     private GameObject selectedObject;
 
     private BuildingClass building;
+    private bool holdMouseButtonFlag = false;
 
     //UI Elements
     private bool isUIMode = false;
@@ -18,7 +21,8 @@ public class SelectBuildingScript : MonoBehaviour
     
     //Animations
     private HeaderAnim anim;
-    private SliderMenuAnim anim2, anim3;
+    private SliderMenuAnim activeSlider;
+    private SliderMenuAnim anim2, anim3; //anim2 - not owned, anim3 - owned
 
     void Start()
     {
@@ -33,55 +37,65 @@ public class SelectBuildingScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !isMouseOverUI())
         {
             holdDownStartTime = Time.time;
+            holdMouseButtonFlag = true;
         }
 
-        if (Input.GetMouseButtonUp(0))
+        float holdDownTime = 0;
+        
+        if(holdMouseButtonFlag)
+            holdDownTime = Time.time - holdDownStartTime;
+
+        //UI activation
+        if (holdDownTime > holdTimeLimit && !isUIMode && !isMouseOverUI())
         {
-            float holdDownTime = Time.time - holdDownStartTime;
-            if (holdDownTime >= holdTimeLimit)
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, 100f))
             {
-                RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-                if (Physics.Raycast(ray, out hit, 100f))
+                if (hit.transform && hit.transform.name != "Plane" && !isUIMode)
                 {
-                    if (hit.transform && hit.transform.name != "Plane" && !isUIMode)
+                    isUIMode = true;
+
+                    print(hit.transform.gameObject.name);
+                    selectedObject = hit.transform.gameObject;
+                    building = selectedObject.GetComponent<BuildingClass>();
+
+                    anim.ShowHideHeader();
+
+                    if(!building.getIsOwned())
                     {
-                        isUIMode = true;
-
-                        print(hit.transform.gameObject.name);
-                        selectedObject = hit.transform.gameObject;
-                        building = selectedObject.GetComponent<BuildingClass>();
-
-                        anim.ShowHideHeader();
-
-                        if(!building.getIsOwned())
-                            anim2.ShowHideMenu();
-                        else
-                            anim3.ShowHideMenu();
+                        activeSlider = anim2;
+                        NotOwnedPanelScript script = new NotOwnedPanelScript(DefaultSideBar, building);
+                        script.setupBar();
                     }
+                    else
+                    {
+                        activeSlider = anim3;
+                    }
+                    activeSlider.ShowHideMenu();
                 }
-                Debug.Log(holdDownTime + " tyle trzymałeś");
             }
-            else 
-            {
-                anim.ShowHideHeader();
-                isUIMode = false;
-                if (!building.getIsOwned())
-                    anim2.ShowHideMenu();
-                else
-                    anim3.ShowHideMenu();
+            //Debug.Log(holdDownTime + " tyle trzymałeś");
+        }
+        
+        //cancel ui panel
+        if(Input.GetMouseButtonDown(0) && isUIMode && !isMouseOverUI())
+        {
+            anim.ShowHideHeader();
+            isUIMode = false;
 
-                building = null;
-            }
+            activeSlider.ShowHideMenu();
+
+            holdMouseButtonFlag = false;
+            building = null;
         }
     }
 
-    public void fillSideBar(GameObject building)
+    private bool isMouseOverUI()
     {
-
+        return EventSystem.current.IsPointerOverGameObject();
     }
 }
