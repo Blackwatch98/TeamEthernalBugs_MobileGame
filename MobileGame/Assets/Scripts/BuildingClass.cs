@@ -8,6 +8,7 @@ public class BuildingClass : MonoBehaviour
     public string type = null;
     public float price = 100;
     public float income = 1000;
+    public float workerIncomeIncrease = 100;
 
     public bool getIsOwned()
     {
@@ -27,5 +28,20 @@ public class BuildingClass : MonoBehaviour
     public void setType(string input)
     {
         type = input;
+    }
+
+    public string getType()
+    {
+        return type;
+    }
+
+    public float getIncome()
+    {
+        return income;
+    }
+
+    public void raiseIncome()
+    {
+        income += workerIncomeIncrease;
     }
 }

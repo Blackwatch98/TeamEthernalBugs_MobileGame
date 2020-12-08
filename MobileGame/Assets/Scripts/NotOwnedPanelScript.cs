@@ -7,6 +7,7 @@ public class NotOwnedPanelScript
 {
     private GameObject DefaultSidebar;
     private Button buyButton;
+    private GameObject buyButtonObject, ownedButtonObject;
     private Button distilleryButton, casinoButton, nightClubButton, drugsButton;
     private Text priceText;
     private Text nameText;
@@ -17,6 +18,9 @@ public class NotOwnedPanelScript
         DefaultSidebar = sidebar;
         currentBuilding = building;
         buyButton = DefaultSidebar.transform.Find("InnerBox").Find("BuyButton").GetComponent<Button>();
+        buyButtonObject = DefaultSidebar.transform.Find("InnerBox").Find("BuyButton").gameObject;
+        ownedButtonObject = DefaultSidebar.transform.Find("InnerBox").Find("OwnButton").gameObject;
+
         distilleryButton = DefaultSidebar.transform.Find("InnerBox").Find("DistilleryTypeButton").GetComponent<Button>();
         casinoButton = DefaultSidebar.transform.Find("InnerBox").Find("CasinoTypeButton").GetComponent<Button>();
         nightClubButton = DefaultSidebar.transform.Find("InnerBox").Find("NightClubTypeButton").GetComponent<Button>();
@@ -28,7 +32,9 @@ public class NotOwnedPanelScript
 
     public void setupBar()
     {
+        updateSidebar();
         buyButton.onClick.AddListener(() => currentBuilding.setIsOwned(true));
+        buyButton.onClick.AddListener(updateSidebar);
         distilleryButton.onClick.AddListener(() => currentBuilding.setType("distillery"));
         casinoButton.onClick.AddListener(() => currentBuilding.setType("casino"));
         nightClubButton.onClick.AddListener(() => currentBuilding.setType("nightClub"));
@@ -38,5 +44,12 @@ public class NotOwnedPanelScript
         nameText.text = currentBuilding.transform.name;
     }
 
-
+    public void updateSidebar()
+    {
+        if(currentBuilding.getIsOwned())
+        {
+            buyButtonObject.SetActive(false);
+            ownedButtonObject.SetActive(true);
+        }
+    }
 }

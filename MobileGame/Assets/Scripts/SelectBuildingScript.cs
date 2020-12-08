@@ -65,16 +65,20 @@ public class SelectBuildingScript : MonoBehaviour
 
                     anim.ShowHideHeader();
 
-                    if(!building.getIsOwned())
+                    Debug.Log(building.getType());
+                    if (building.getIsOwned() && building.getType() != "")
+                    {
+                        activeSlider = anim3;
+                        OwnedPanelScript script = new OwnedPanelScript(ClassifiedSideBar, building);
+                        script.setupBar();
+                    }
+                    else
                     {
                         activeSlider = anim2;
                         NotOwnedPanelScript script = new NotOwnedPanelScript(DefaultSideBar, building);
                         script.setupBar();
                     }
-                    else
-                    {
-                        activeSlider = anim3;
-                    }
+                    
                     activeSlider.ShowHideMenu();
                 }
             }
