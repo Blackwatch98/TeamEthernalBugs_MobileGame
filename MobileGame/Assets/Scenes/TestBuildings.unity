@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 223595667}
   - component: {fileID: 223595666}
   m_Layer: 5
-  m_Name: Image
+  m_Name: dollar_image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -244,7 +244,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -240, y: 170}
+  m_AnchoredPosition: {x: -190, y: 170}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &223595666
@@ -1352,7 +1352,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -310, y: 170}
+  m_AnchoredPosition: {x: -260, y: 170}
   m_SizeDelta: {x: 80, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1328147714
@@ -1571,6 +1571,7 @@ GameObject:
   - component: {fileID: 1456585517}
   - component: {fileID: 1456585519}
   - component: {fileID: 1456585518}
+  - component: {fileID: 1456585520}
   m_Layer: 5
   m_Name: gold
   m_TagString: Untagged
@@ -1594,7 +1595,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -450, y: 170}
+  m_AnchoredPosition: {x: -400, y: 170}
   m_SizeDelta: {x: 80, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1456585518
@@ -1630,7 +1631,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 100000
+  m_Text: 0
 --- !u!222 &1456585519
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1639,6 +1640,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1456585516}
   m_CullTransparentMesh: 0
+--- !u!114 &1456585520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456585516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bf18740ca245d94e849b07856be2a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gold: 0
+  text: {fileID: 1456585518}
 --- !u!1001 &1478589360
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2277,7 +2292,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -380, y: 170}
+  m_AnchoredPosition: {x: -330, y: 170}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1972101460
