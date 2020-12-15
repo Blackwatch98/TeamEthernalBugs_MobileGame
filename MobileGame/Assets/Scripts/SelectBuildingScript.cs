@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class SelectBuildingScript : MonoBehaviour
 {
@@ -9,79 +11,120 @@ public class SelectBuildingScript : MonoBehaviour
     private GameObject selectedObject;
 
     private BuildingClass building;
+    private bool holdMouseButtonFlag = false;
 
     //UI Elements
     private bool isUIMode = false;
     private GameObject PanelHeader;
+    private GameObject SideBar;
     private GameObject DefaultSideBar;
     private GameObject ClassifiedSideBar;
+    private GameObject BlackMarketSideBar;
     
     //Animations
     private HeaderAnim anim;
-    private SliderMenuAnim anim2, anim3;
+    private SliderMenuAnim activeSlider;
+    private SliderMenuAnim anim2;
 
     void Start()
     {
         PanelHeader = GameObject.Find("PanelHeader");
-        DefaultSideBar = GameObject.Find("DefaultSideBar");
-        ClassifiedSideBar = GameObject.Find("ClassifiedSidebar");
+        Debug.Log(PanelHeader);
+        SideBar = GameObject.Find("Sidebar");
+        DefaultSideBar = SideBar.transform.Find("DefaultSideBar").gameObject;
+        ClassifiedSideBar = SideBar.transform.Find("ClassifiedSidebar").gameObject;
+        BlackMarketSideBar = SideBar.transform.Find("BlackMarketSidebar").gameObject;
+
+        Button blackMarketButton = ClassifiedSideBar.transform.Find("BlackMarketButton").GetComponent<Button>();
+        blackMarketButton.onClick.AddListener(showHideBlackMarket);
+        
+        Button blackMarketBackButton = BlackMarketSideBar.transform.Find("BackButton").GetComponent<Button>();
+        blackMarketBackButton.onClick.AddListener(showHideBlackMarket);
 
         anim = PanelHeader.GetComponent<HeaderAnim>(); //get Header object
-        anim2 = DefaultSideBar.GetComponent<SliderMenuAnim>(); //get DefaultSideBar object
-        anim3 = ClassifiedSideBar.GetComponent<SliderMenuAnim>(); //get ClassifiedSideBar object
+        anim2 = SideBar.GetComponent<SliderMenuAnim>(); //get DefaultSideBar object
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !isMouseOverUI())
         {
             holdDownStartTime = Time.time;
+            holdMouseButtonFlag = true;
         }
 
-        if (Input.GetMouseButtonUp(0))
+        float holdDownTime = 0;
+        
+        if(holdMouseButtonFlag)
+            holdDownTime = Time.time - holdDownStartTime;
+
+        //UI activation
+        if (holdDownTime > holdTimeLimit && !isUIMode && !isMouseOverUI())
         {
-            float holdDownTime = Time.time - holdDownStartTime;
-            if (holdDownTime >= holdTimeLimit)
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, 100f))
             {
-                RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-                if (Physics.Raycast(ray, out hit, 100f))
+                if (hit.transform && hit.transform.name != "Plane" && !isUIMode)
                 {
-                    if (hit.transform && hit.transform.name != "Plane" && !isUIMode)
+                    isUIMode = true;
+
+                    selectedObject = hit.transform.gameObject;
+                    building = selectedObject.GetComponent<BuildingClass>();
+
+                    anim.ShowHideHeader();
+
+                    Debug.Log(building.getType());
+                    if (building.getIsOwned() && building.getType() != "")
                     {
-                        isUIMode = true;
-
-                        print(hit.transform.gameObject.name);
-                        selectedObject = hit.transform.gameObject;
-                        building = selectedObject.GetComponent<BuildingClass>();
-
-                        anim.ShowHideHeader();
-
-                        if(!building.getIsOwned())
-                            anim2.ShowHideMenu();
-                        else
-                            anim3.ShowHideMenu();
+                        ClassifiedSideBar.SetActive(true);
+                        OwnedPanelScript script = new OwnedPanelScript(ClassifiedSideBar, building);
+                        script.setupBar();
                     }
-                }
-                Debug.Log(holdDownTime + " tyle trzymałeś");
-            }
-            else 
-            {
-                anim.ShowHideHeader();
-                isUIMode = false;
-                if (!building.getIsOwned())
+                    else
+                    {
+                        ClassifiedSideBar.SetActive(false);
+                        NotOwnedPanelScript script = new NotOwnedPanelScript(DefaultSideBar, building);
+                        script.setupBar();
+                    }
+                    
                     anim2.ShowHideMenu();
-                else
-                    anim3.ShowHideMenu();
-
-                building = null;
+                }
             }
+            //Debug.Log(holdDownTime + " tyle trzymałeś");
+        }
+        
+        //cancel ui panel
+        if(Input.GetMouseButtonDown(0) && isUIMode && !isMouseOverUI())
+        {
+            anim.ShowHideHeader();
+            isUIMode = false;
+
+            anim2.ShowHideMenu();
+
+            holdMouseButtonFlag = false;
+            building = null;
         }
     }
 
-    public void fillSideBar(GameObject building)
+    private bool isMouseOverUI()
     {
+        return EventSystem.current.IsPointerOverGameObject();
+    }
 
+    private void showHideBlackMarket()
+    {
+        if(!BlackMarketSideBar.activeSelf)
+            BlackMarketSideBar.SetActive(true);
+        else
+            BlackMarketSideBar.SetActive(false);
+    }
+
+    private void showHideClassifiedSidebar()
+    {
+        if (!ClassifiedSideBar.activeSelf)
+            ClassifiedSideBar.SetActive(true);
+        else
+            ClassifiedSideBar.SetActive(false);
     }
 }
