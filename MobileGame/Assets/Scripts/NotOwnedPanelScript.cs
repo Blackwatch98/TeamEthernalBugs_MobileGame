@@ -46,10 +46,15 @@ public class NotOwnedPanelScript
 
     public void updateSidebar()
     {
-        if(currentBuilding.getIsOwned())
+        if (currentBuilding.getIsOwned())
         {
             buyButtonObject.SetActive(false);
             ownedButtonObject.SetActive(true);
+        }
+        else
+        {
+            buyButtonObject.SetActive(true);
+            ownedButtonObject.SetActive(false);
         }
     }
 }
