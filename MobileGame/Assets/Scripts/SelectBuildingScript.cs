@@ -16,6 +16,7 @@ public class SelectBuildingScript : MonoBehaviour
     //UI Elements
     private bool isUIMode = false;
     private GameObject PanelHeader;
+    private GameObject SideBar;
     private GameObject DefaultSideBar;
     private GameObject ClassifiedSideBar;
     private GameObject BlackMarketSideBar;
@@ -23,24 +24,25 @@ public class SelectBuildingScript : MonoBehaviour
     //Animations
     private HeaderAnim anim;
     private SliderMenuAnim activeSlider;
-    private SliderMenuAnim anim2, anim3; //anim2 - not owned, anim3 - owned
+    private SliderMenuAnim anim2;
 
     void Start()
     {
         PanelHeader = GameObject.Find("PanelHeader");
-        DefaultSideBar = GameObject.Find("DefaultSideBar");
-        ClassifiedSideBar = GameObject.Find("ClassifiedSidebar");
-        BlackMarketSideBar = ClassifiedSideBar.transform.Find("BlackMarketSidebar").gameObject;
+        Debug.Log(PanelHeader);
+        SideBar = GameObject.Find("Sidebar");
+        DefaultSideBar = SideBar.transform.Find("DefaultSideBar").gameObject;
+        ClassifiedSideBar = SideBar.transform.Find("ClassifiedSidebar").gameObject;
+        BlackMarketSideBar = SideBar.transform.Find("BlackMarketSidebar").gameObject;
 
-        Button blackMarketButton = ClassifiedSideBar.transform.Find("InnerBox").Find("BlackMarketButton").GetComponent<Button>();
+        Button blackMarketButton = ClassifiedSideBar.transform.Find("BlackMarketButton").GetComponent<Button>();
         blackMarketButton.onClick.AddListener(showHideBlackMarket);
         
-        Button blackMarketBackButton = ClassifiedSideBar.transform.Find("BlackMarketSidebar").Find("BackButton").GetComponent<Button>();
+        Button blackMarketBackButton = BlackMarketSideBar.transform.Find("BackButton").GetComponent<Button>();
         blackMarketBackButton.onClick.AddListener(showHideBlackMarket);
 
         anim = PanelHeader.GetComponent<HeaderAnim>(); //get Header object
-        anim2 = DefaultSideBar.GetComponent<SliderMenuAnim>(); //get DefaultSideBar object
-        anim3 = ClassifiedSideBar.GetComponent<SliderMenuAnim>(); //get ClassifiedSideBar object
+        anim2 = SideBar.GetComponent<SliderMenuAnim>(); //get DefaultSideBar object
     }
 
     void Update()
@@ -75,18 +77,18 @@ public class SelectBuildingScript : MonoBehaviour
                     Debug.Log(building.getType());
                     if (building.getIsOwned() && building.getType() != "")
                     {
-                        activeSlider = anim3;
+                        ClassifiedSideBar.SetActive(true);
                         OwnedPanelScript script = new OwnedPanelScript(ClassifiedSideBar, building);
                         script.setupBar();
                     }
                     else
                     {
-                        activeSlider = anim2;
+                        ClassifiedSideBar.SetActive(false);
                         NotOwnedPanelScript script = new NotOwnedPanelScript(DefaultSideBar, building);
                         script.setupBar();
                     }
                     
-                    activeSlider.ShowHideMenu();
+                    anim2.ShowHideMenu();
                 }
             }
             //Debug.Log(holdDownTime + " tyle trzymałeś");
@@ -98,7 +100,7 @@ public class SelectBuildingScript : MonoBehaviour
             anim.ShowHideHeader();
             isUIMode = false;
 
-            activeSlider.ShowHideMenu();
+            anim2.ShowHideMenu();
 
             holdMouseButtonFlag = false;
             building = null;
@@ -116,5 +118,13 @@ public class SelectBuildingScript : MonoBehaviour
             BlackMarketSideBar.SetActive(true);
         else
             BlackMarketSideBar.SetActive(false);
+    }
+
+    private void showHideClassifiedSidebar()
+    {
+        if (!ClassifiedSideBar.activeSelf)
+            ClassifiedSideBar.SetActive(true);
+        else
+            ClassifiedSideBar.SetActive(false);
     }
 }

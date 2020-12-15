@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class NotOwnedPanelScript
 {
-    private GameObject DefaultSidebar;
+    private GameObject Sidebar;
     private Button buyButton;
     private GameObject buyButtonObject, ownedButtonObject;
     private Button distilleryButton, casinoButton, nightClubButton, drugsButton;
@@ -15,19 +15,19 @@ public class NotOwnedPanelScript
 
     public NotOwnedPanelScript(GameObject sidebar, BuildingClass building)
     {
-        DefaultSidebar = sidebar;
+        Sidebar = sidebar;
         currentBuilding = building;
-        buyButton = DefaultSidebar.transform.Find("InnerBox").Find("BuyButton").GetComponent<Button>();
-        buyButtonObject = DefaultSidebar.transform.Find("InnerBox").Find("BuyButton").gameObject;
-        ownedButtonObject = DefaultSidebar.transform.Find("InnerBox").Find("OwnButton").gameObject;
+        buyButton = Sidebar.transform.Find("BuyButton").GetComponent<Button>();
+        buyButtonObject = Sidebar.transform.Find("BuyButton").gameObject;
+        ownedButtonObject = Sidebar.transform.Find("OwnButton").gameObject;
 
-        distilleryButton = DefaultSidebar.transform.Find("InnerBox").Find("DistilleryTypeButton").GetComponent<Button>();
-        casinoButton = DefaultSidebar.transform.Find("InnerBox").Find("CasinoTypeButton").GetComponent<Button>();
-        nightClubButton = DefaultSidebar.transform.Find("InnerBox").Find("NightClubTypeButton").GetComponent<Button>();
-        drugsButton = DefaultSidebar.transform.Find("InnerBox").Find("DrugHollowTypeButton").GetComponent<Button>();
+        distilleryButton = Sidebar.transform.Find("DistilleryTypeButton").GetComponent<Button>();
+        casinoButton = Sidebar.transform.Find("CasinoTypeButton").GetComponent<Button>();
+        nightClubButton = Sidebar.transform.Find("NightClubTypeButton").GetComponent<Button>();
+        drugsButton = Sidebar.transform.Find("DrugHollowTypeButton").GetComponent<Button>();
 
-        priceText = DefaultSidebar.transform.Find("InnerBox").Find("Price").GetComponent<Text>();
-        nameText = DefaultSidebar.transform.Find("InnerBox").Find("NamePanel").Find("Name").GetComponent<Text>();
+        priceText = Sidebar.transform.Find("Price").GetComponent<Text>();
+        nameText = Sidebar.transform.Find("NamePanel").Find("Name").GetComponent<Text>();
     }
 
     public void setupBar()
@@ -35,10 +35,10 @@ public class NotOwnedPanelScript
         updateSidebar();
         buyButton.onClick.AddListener(() => currentBuilding.setIsOwned(true));
         buyButton.onClick.AddListener(updateSidebar);
-        distilleryButton.onClick.AddListener(() => currentBuilding.setType("distillery"));
-        casinoButton.onClick.AddListener(() => currentBuilding.setType("casino"));
-        nightClubButton.onClick.AddListener(() => currentBuilding.setType("nightClub"));
-        drugsButton.onClick.AddListener(() => currentBuilding.setType("drugHollow"));
+        distilleryButton.onClick.AddListener(() => setBuildingType("Destylarnia"));
+        casinoButton.onClick.AddListener(() => setBuildingType("Kasyno"));
+        nightClubButton.onClick.AddListener(() => setBuildingType("Klub Nocny"));
+        drugsButton.onClick.AddListener(() => setBuildingType("Dilerka"));
 
         priceText.text = currentBuilding.getPrice().ToString();
         nameText.text = currentBuilding.transform.name;
@@ -56,5 +56,14 @@ public class NotOwnedPanelScript
             buyButtonObject.SetActive(true);
             ownedButtonObject.SetActive(false);
         }
+    }
+
+    public void setBuildingType(string type)
+    {
+        currentBuilding.setType(type);
+        GameObject ClassifiedSidebar = GameObject.Find("Sidebar").transform.Find("ClassifiedSidebar").gameObject;
+        ClassifiedSidebar.SetActive(true);
+        OwnedPanelScript script = new OwnedPanelScript(ClassifiedSidebar, currentBuilding);
+        script.setupBar();
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class OwnedPanelScript
 {
-    private GameObject ClassifiedSideBar;
+    private GameObject SideBar;
     private Text typeText;
     private Text nameText;
     private Text incomeText;
@@ -14,13 +14,13 @@ public class OwnedPanelScript
 
     public OwnedPanelScript(GameObject sidebar, BuildingClass building)
     {
-        ClassifiedSideBar = sidebar;
+        SideBar = sidebar;
         currentBuilding = building;
 
-        typeText = ClassifiedSideBar.transform.Find("InnerBox").Find("BuildingClass").GetComponent<Text>();
-        nameText = ClassifiedSideBar.transform.Find("InnerBox").Find("NamePanel").Find("Name").GetComponent<Text>();
-        incomeText = ClassifiedSideBar.transform.Find("InnerBox").Find("Income").GetComponent<Text>();
-        hireWorkersButton = ClassifiedSideBar.transform.Find("InnerBox").Find("HireWorkersButton").GetComponent<Button>();
+        typeText = SideBar.transform.Find("BuildingClass").GetComponent<Text>();
+        nameText = SideBar.transform.Find("NamePanel").Find("Name").GetComponent<Text>();
+        incomeText = SideBar.transform.Find("Income").GetComponent<Text>();
+        hireWorkersButton = SideBar.transform.Find("HireWorkersButton").GetComponent<Button>();
     }
 
     public void setupBar()
