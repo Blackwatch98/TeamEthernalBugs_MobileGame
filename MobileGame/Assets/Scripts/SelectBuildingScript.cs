@@ -18,6 +18,7 @@ public class SelectBuildingScript : MonoBehaviour
     private GameObject PanelHeader;
     private GameObject DefaultSideBar;
     private GameObject ClassifiedSideBar;
+    private GameObject BlackMarketSideBar;
     
     //Animations
     private HeaderAnim anim;
@@ -29,6 +30,13 @@ public class SelectBuildingScript : MonoBehaviour
         PanelHeader = GameObject.Find("PanelHeader");
         DefaultSideBar = GameObject.Find("DefaultSideBar");
         ClassifiedSideBar = GameObject.Find("ClassifiedSidebar");
+        BlackMarketSideBar = ClassifiedSideBar.transform.Find("BlackMarketSidebar").gameObject;
+
+        Button blackMarketButton = ClassifiedSideBar.transform.Find("InnerBox").Find("BlackMarketButton").GetComponent<Button>();
+        blackMarketButton.onClick.AddListener(showHideBlackMarket);
+        
+        Button blackMarketBackButton = ClassifiedSideBar.transform.Find("BlackMarketSidebar").Find("BackButton").GetComponent<Button>();
+        blackMarketBackButton.onClick.AddListener(showHideBlackMarket);
 
         anim = PanelHeader.GetComponent<HeaderAnim>(); //get Header object
         anim2 = DefaultSideBar.GetComponent<SliderMenuAnim>(); //get DefaultSideBar object
@@ -59,7 +67,6 @@ public class SelectBuildingScript : MonoBehaviour
                 {
                     isUIMode = true;
 
-                    print(hit.transform.gameObject.name);
                     selectedObject = hit.transform.gameObject;
                     building = selectedObject.GetComponent<BuildingClass>();
 
@@ -101,5 +108,13 @@ public class SelectBuildingScript : MonoBehaviour
     private bool isMouseOverUI()
     {
         return EventSystem.current.IsPointerOverGameObject();
+    }
+
+    private void showHideBlackMarket()
+    {
+        if(!BlackMarketSideBar.activeSelf)
+            BlackMarketSideBar.SetActive(true);
+        else
+            BlackMarketSideBar.SetActive(false);
     }
 }
