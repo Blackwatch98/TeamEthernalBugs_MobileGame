@@ -7,8 +7,8 @@ using System;
 public class Highlight : MonoBehaviour
 {
     int delayToPick = 5;
-    int startProfitforAll = 0;
-    int profitIncrease = 2;
+    float startProfitforAll;
+    float profitIncrease;
     double startTime, endTime, countToYellow, shiningStartTime, shiningEndTime;
     string clickedBuilding = "";
     Camera cam;
@@ -20,6 +20,19 @@ public class Highlight : MonoBehaviour
     Text tobaccoCounter;
     bool countdownToYellowStarted = false;
 
+    //UI Elements
+    private bool isUIMode = false;
+    private GameObject PanelHeader;
+    private GameObject SideBar;
+    private GameObject DefaultSideBar;
+    private GameObject ClassifiedSideBar;
+    private GameObject BlackMarketSideBar;
+
+    //Animations
+    private HeaderAnim anim;
+    private SliderMenuAnim activeSlider;
+    private SliderMenuAnim anim2;
+
     // Start is called before the first frame update
 
     void Start()
@@ -29,18 +42,43 @@ public class Highlight : MonoBehaviour
         countToYellow = 0f;
         shiningStartTime = 0f;
         shiningEndTime = 0f;
+        //tworzymy instancje klasy budynek
+        //BuildingClass b = new BuildingClass();
+        //profitIncrease = b.income;
+
+        //PanelHeader = GameObject.Find("PanelHeader");
+        Debug.Log(PanelHeader);
+        SideBar = GameObject.Find("Sidebar");
+        DefaultSideBar = SideBar.transform.Find("DefaultSideBar").gameObject;
+        ClassifiedSideBar = SideBar.transform.Find("ClassifiedSidebar").gameObject;
+        BlackMarketSideBar = SideBar.transform.Find("BlackMarketSidebar").gameObject;
+
+        Button blackMarketButton = ClassifiedSideBar.transform.Find("BlackMarketButton").GetComponent<Button>();
+        blackMarketButton.onClick.AddListener(showHideBlackMarket);
+
+        Button blackMarketBackButton = BlackMarketSideBar.transform.Find("BackButton").GetComponent<Button>();
+        blackMarketBackButton.onClick.AddListener(showHideBlackMarket);
+
+        
+        //blackMarketButton.onClick.AddListener(showHideBlackMarket);
+
+    
+        //blackMarketBackButton.onClick.AddListener(showHideBlackMarket);
+
+        //anim = PanelHeader.GetComponent<HeaderAnim>(); //get Header object
+        anim2 = SideBar.GetComponent<SliderMenuAnim>(); //get DefaultSideBar object
 
         profitInfo = GameObject.Find("gold").GetComponent<Text>();
         tobaccoCounter = GameObject.Find("tobaccoCounter").GetComponent<Text>();
 
         obj = GameObject.FindGameObjectsWithTag("Handleable");
-        foreach(var sth in obj)
+
+        foreach (GameObject gameObject in obj)
         {
-            Debug.Log("Handlable objects" + ((GameObject)sth).name);
+            Debug.Log("Zysk budynku: "+gameObject.name);
+            Debug.Log(gameObject.GetComponent<BuildingClass>().income);
         }
 
-
-    
         originalColorsOfAllBuildings = new List<List<Color>>();
         foreach (GameObject gameObject in obj)
         {
@@ -62,12 +100,19 @@ public class Highlight : MonoBehaviour
 
         bool physicsRaycast = Physics.Raycast(ray, out hit);
 
-        if (Equals(clickedBuilding, "") && Input.GetMouseButtonDown(0) && physicsRaycast)
+        if (Equals(clickedBuilding, "") && Input.GetMouseButtonDown(0) && physicsRaycast && obj.Contains(GameObject.Find(hit.transform.name)) && !isUIMode)
         {
             originalColorsOfSingleBuilding = storeOriginalColor(hit.transform.name);
             startTime = Time.time;
             clickedBuilding = hit.transform.name;
+            Debug.Log("Wybrałeś objekt: "+clickedBuilding);
             tobaccoCounter.transform.position = getClickedObjectPos(clickedBuilding);
+            //anim.ShowHideHeader(clickedBuilding);
+            if (SideBar.GetComponent<SliderMenuAnim>().getState())
+            {
+                Debug.Log("Otwarty");
+                anim2.ShowHideMenu(clickedBuilding);
+            }
         }
 
         if (Input.GetMouseButtonUp(0) && !countdownToYellowStarted)
@@ -76,16 +121,32 @@ public class Highlight : MonoBehaviour
         if (endTime - startTime > 0.5f && !countdownToYellowStarted)
         {
 
-            if (physicsRaycast && !Equals(clickedBuilding, ""))
+            if (physicsRaycast && !Equals(clickedBuilding, "") && !isUIMode)
             {
-
+             
                 setOrginalColorsForAllBuildings(clickedBuilding);
 
                 highlightClicked("green", clickedBuilding);
 
+                if (GameObject.Find(clickedBuilding).GetComponent<BuildingClass>().getIsOwned())
+                {
+                    ClassifiedSideBar.SetActive(true);
+                    OwnedPanelScript script = new OwnedPanelScript(ClassifiedSideBar, GameObject.Find(clickedBuilding).GetComponent<BuildingClass>());
+                    script.setupBar();
+                }
+                else
+                {
+                    ClassifiedSideBar.SetActive(false);
+                    NotOwnedPanelScript script = new NotOwnedPanelScript(DefaultSideBar, GameObject.Find(clickedBuilding).GetComponent<BuildingClass>());
+                    script.setupBar();
+                }
+
+                anim2.ShowHideMenu(clickedBuilding);
+
                 clickedBuilding = "";
 
             }
+
         }
 
         if (endTime - startTime < 0.5f && endTime - startTime > 0.0f)
@@ -131,11 +192,17 @@ public class Highlight : MonoBehaviour
         if (shiningEndTime - shiningStartTime > 3.0f && clickedBuilding != "")
         {
             setOriginalColors(clickedBuilding, originalColorsOfSingleBuilding);
+            //anim.ShowHideHeader(clickedBuilding);
             shiningStartTime = 0f;
             shiningEndTime = 0f;
-            clickedBuilding = "";
-            startProfitforAll = startProfitforAll + profitIncrease;
+
+            Debug.Log("Wszedłem we ifa");
+            Debug.Log("Wartość zysku");
+            Debug.Log(GameObject.Find(clickedBuilding).GetComponent<BuildingClass>().income);
+
+            startProfitforAll = startProfitforAll + GameObject.Find(clickedBuilding).GetComponent<BuildingClass>().income;
             profitInfo.text =  startProfitforAll.ToString();
+            clickedBuilding = "";
         }
     }
 
@@ -214,6 +281,15 @@ public class Highlight : MonoBehaviour
         return cam.WorldToScreenPoint(gameObject.transform.position);
     }
 
+
+    private void showHideBlackMarket()
+    {
+        if (!BlackMarketSideBar.activeSelf)
+            BlackMarketSideBar.SetActive(true);
+        else
+            BlackMarketSideBar.SetActive(false);
+    }
+
     void highlightClicked(String color, String clickedBuilding)
     {
         GameObject gameObject = GameObject.Find(clickedBuilding);
@@ -223,6 +299,7 @@ public class Highlight : MonoBehaviour
             if (Equals(color, "green") && material.color[0] != 1 && material.color[1] != 1)
             {
                 material.color = new Color(material.color[0], 1, material.color[2], material.color[3]);
+                //anim2.ShowHideMenu();
 
             }
             else if (Equals(color, "yellow") && material.color[1] != 1)
