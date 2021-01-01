@@ -1197,7 +1197,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &189009763
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1603,7 +1603,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &200101224
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2247,6 +2247,7 @@ MonoBehaviour:
   income: 10
   workerIncomeIncrease: 100
   maxNumOfWorkers: 0
+  name: Salon Aut
 --- !u!1001 &264808657
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3092,9 +3093,10 @@ MonoBehaviour:
   isOwned: 0
   type: 
   price: 0
-  income: 0
+  income: 45
   workerIncomeIncrease: 0
   maxNumOfWorkers: 0
+  name: "Stra\u017C"
 --- !u!1001 &396632914
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3394,7 +3396,7 @@ GameObject:
   - component: {fileID: 454703379}
   m_Layer: 5
   m_Name: Name
-  m_TagString: Untagged
+  m_TagString: Text
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3551,7 +3553,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &456875224
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3769,6 +3771,7 @@ MonoBehaviour:
   income: 0
   workerIncomeIncrease: 0
   maxNumOfWorkers: 0
+  name: TeamEthernalBugs Inc.
 --- !u!1 &479582458
 GameObject:
   m_ObjectHideFlags: 0
@@ -4421,7 +4424,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &587155741
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5652,6 +5655,7 @@ MonoBehaviour:
   income: 0
   workerIncomeIncrease: 0
   maxNumOfWorkers: 0
+  name: Elektrownia Czajka
 --- !u!1001 &785688104
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6223,6 +6227,7 @@ MonoBehaviour:
   income: 0
   workerIncomeIncrease: 0
   maxNumOfWorkers: 0
+  name: 
 --- !u!1001 &863789055
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7343,6 +7348,7 @@ MonoBehaviour:
   income: 0
   workerIncomeIncrease: 0
   maxNumOfWorkers: 0
+  name: Posterunek Glin
 --- !u!1001 &1063695411
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7984,6 +7990,7 @@ MonoBehaviour:
   income: 5
   workerIncomeIncrease: 100
   maxNumOfWorkers: 0
+  name: "Laboratorium Kosmetyk\xF3w"
 --- !u!1001 &1250930698
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9561,6 +9568,7 @@ MonoBehaviour:
   income: 1000
   workerIncomeIncrease: 100
   maxNumOfWorkers: 0
+  name: Plantacja Tytoniu
 --- !u!1001 &1505211871
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10951,6 +10959,7 @@ MonoBehaviour:
   income: 0
   workerIncomeIncrease: 0
   maxNumOfWorkers: 0
+  name: Fabryka odkurzaczy
 --- !u!1001 &1738293669
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13162,6 +13171,7 @@ MonoBehaviour:
   income: 20
   workerIncomeIncrease: 0
   maxNumOfWorkers: 0
+  name: Ratusz
 --- !u!1001 &2137156754
 PrefabInstance:
   m_ObjectHideFlags: 0

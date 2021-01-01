@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
 using System;
+
 public class Highlight : MonoBehaviour
 {
     int delayToPick = 5;
@@ -51,14 +52,6 @@ public class Highlight : MonoBehaviour
         SideBar = GameObject.Find("Sidebar");
         DefaultSideBar = SideBar.transform.Find("DefaultSideBar").gameObject;
         ClassifiedSideBar = SideBar.transform.Find("ClassifiedSidebar").gameObject;
-        BlackMarketSideBar = SideBar.transform.Find("BlackMarketSidebar").gameObject;
-
-        Button blackMarketButton = ClassifiedSideBar.transform.Find("BlackMarketButton").GetComponent<Button>();
-        blackMarketButton.onClick.AddListener(showHideBlackMarket);
-
-        Button blackMarketBackButton = BlackMarketSideBar.transform.Find("BackButton").GetComponent<Button>();
-        blackMarketBackButton.onClick.AddListener(showHideBlackMarket);
-
         
         //blackMarketButton.onClick.AddListener(showHideBlackMarket);
 
@@ -72,12 +65,6 @@ public class Highlight : MonoBehaviour
         tobaccoCounter = GameObject.Find("tobaccoCounter").GetComponent<Text>();
 
         obj = GameObject.FindGameObjectsWithTag("Handleable");
-
-        foreach (GameObject gameObject in obj)
-        {
-            Debug.Log("Zysk budynku: "+gameObject.name);
-            Debug.Log(gameObject.GetComponent<BuildingClass>().income);
-        }
 
         originalColorsOfAllBuildings = new List<List<Color>>();
         foreach (GameObject gameObject in obj)
@@ -105,12 +92,10 @@ public class Highlight : MonoBehaviour
             originalColorsOfSingleBuilding = storeOriginalColor(hit.transform.name);
             startTime = Time.time;
             clickedBuilding = hit.transform.name;
-            Debug.Log("Wybrałeś objekt: "+clickedBuilding);
             tobaccoCounter.transform.position = getClickedObjectPos(clickedBuilding);
             //anim.ShowHideHeader(clickedBuilding);
             if (SideBar.GetComponent<SliderMenuAnim>().getState())
             {
-                Debug.Log("Otwarty");
                 anim2.ShowHideMenu(clickedBuilding);
             }
         }
@@ -128,17 +113,21 @@ public class Highlight : MonoBehaviour
 
                 highlightClicked("green", clickedBuilding);
 
-                if (GameObject.Find(clickedBuilding).GetComponent<BuildingClass>().getIsOwned())
+                BuildingClass building = GameObject.Find(clickedBuilding).GetComponent<BuildingClass>();
+
+                if (building.getIsOwned())
                 {
-                    ClassifiedSideBar.SetActive(true);
-                    OwnedPanelScript script = new OwnedPanelScript(ClassifiedSideBar, GameObject.Find(clickedBuilding).GetComponent<BuildingClass>());
-                    script.setupBar();
+                        ClassifiedSideBar.SetActive(true);
+                        OwnedPanelScript script = new OwnedPanelScript(ClassifiedSideBar, building);
+                        building.setOwnedPanel(script);
+                        building.getOwnedPanel().setupBar();
                 }
                 else
                 {
-                    ClassifiedSideBar.SetActive(false);
-                    NotOwnedPanelScript script = new NotOwnedPanelScript(DefaultSideBar, GameObject.Find(clickedBuilding).GetComponent<BuildingClass>());
-                    script.setupBar();
+                        ClassifiedSideBar.SetActive(false);
+                        NotOwnedPanelScript script = new NotOwnedPanelScript(DefaultSideBar, building);
+                        building.setNotOwnedPanel(script);
+                        building.getNotOwnedPanel().setupBar();
                 }
 
                 anim2.ShowHideMenu(clickedBuilding);
@@ -279,15 +268,6 @@ public class Highlight : MonoBehaviour
         GameObject gameObject = GameObject.Find(clickedObjName);
         cam = GetComponent<Camera>();
         return cam.WorldToScreenPoint(gameObject.transform.position);
-    }
-
-
-    private void showHideBlackMarket()
-    {
-        if (!BlackMarketSideBar.activeSelf)
-            BlackMarketSideBar.SetActive(true);
-        else
-            BlackMarketSideBar.SetActive(false);
     }
 
     void highlightClicked(String color, String clickedBuilding)
