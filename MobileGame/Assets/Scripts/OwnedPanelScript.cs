@@ -9,7 +9,7 @@ public class OwnedPanelScript
     private Text typeText;
     private Text nameText;
     private Text incomeText;
-    private Button hireWorkersButton;
+    private Button hireWorkersButton, blackMarketBackButton;
     private BuildingClass currentBuilding;
 
     public OwnedPanelScript(GameObject sidebar, BuildingClass building)
@@ -21,9 +21,6 @@ public class OwnedPanelScript
         TopSideBar = GameObject.Find("Sidebar");
         BlackMarketSideBar = TopSideBar.transform.Find("BlackMarketSidebar").gameObject;
 
-        Button blackMarketBackButton = BlackMarketSideBar.transform.Find("BackButton").GetComponent<Button>();
-        blackMarketBackButton.onClick.AddListener(showHideBlackMarket);
-
         sidebar.SetActive(true);
         SideBar = GameObject.Instantiate(sidebar, sidebar.transform.parent.gameObject.transform);
         SideBar.gameObject.name = sidebar.gameObject.name + " " + currentBuilding.getName();
@@ -32,7 +29,11 @@ public class OwnedPanelScript
         Button blackMarketButton = SideBar.transform.Find("BlackMarketButton").GetComponent<Button>();
         blackMarketButton.onClick.AddListener(showHideBlackMarket);
 
-        Debug.Log("Nowa instancja OwnedPanelscript dla obiektu " + currentBuilding.transform.name);
+        BlackMarketSideBar = GameObject.Instantiate(TopSideBar.transform.Find("BlackMarketSidebar").gameObject, TopSideBar.transform);
+        BlackMarketSideBar.gameObject.name = TopSideBar.transform.Find("BlackMarketSidebar").gameObject.name + " " + currentBuilding.getName();
+        blackMarketBackButton = BlackMarketSideBar.transform.Find("BackButton").GetComponent<Button>();
+        blackMarketBackButton.onClick.AddListener(showHideBlackMarket);
+
         typeText = SideBar.transform.Find("BuildingClass").GetComponent<Text>();
         nameText = SideBar.transform.Find("NamePanel").Find("Name").GetComponent<Text>();
         incomeText = SideBar.transform.Find("Income").GetComponent<Text>();
@@ -65,16 +66,15 @@ public class OwnedPanelScript
 
     private void showHideBlackMarket()
     {
-        if (!BlackMarketSideBar.activeSelf)
+        if(!BlackMarketSideBar.activeSelf)
         {
             BlackMarketSideBar.SetActive(true);
             SideBar.SetActive(false);
         }
-            
         else
         {
             BlackMarketSideBar.SetActive(false);
             SideBar.SetActive(true);
-        } 
+        }
     }
 }

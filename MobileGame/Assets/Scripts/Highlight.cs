@@ -4,21 +4,21 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 public class Highlight : MonoBehaviour
 {
     int delayToPick = 5;
     float startProfitforAll;
     float profitIncrease;
-    double startTime, endTime, countToYellow, shiningStartTime, shiningEndTime;
+    double startTime, endTime, countToYellow, shiningStartTime, shiningEndTime, endTimeGreen;
     string clickedBuilding = "";
     Camera cam;
     Transform clickedObject;
     object[] obj;
     List<Color> originalColorsOfSingleBuilding = new List<Color>();
     List<List<Color>> originalColorsOfAllBuildings;
-    Text profitInfo;
-    Text tobaccoCounter;
+    TextMeshProUGUI profitInfo, counterText;
     bool countdownToYellowStarted = false;
 
     //UI Elements
@@ -26,8 +26,8 @@ public class Highlight : MonoBehaviour
     private GameObject PanelHeader;
     private GameObject SideBar;
     private GameObject DefaultSideBar;
-    private GameObject ClassifiedSideBar;
     private GameObject BlackMarketSideBar;
+    private Button blackMarketBackButton;
 
     //Animations
     private HeaderAnim anim;
@@ -41,28 +41,20 @@ public class Highlight : MonoBehaviour
         startTime = 0f;
         endTime = 0f;
         countToYellow = 0f;
+        endTimeGreen = 0f;
         shiningStartTime = 0f;
         shiningEndTime = 0f;
-        //tworzymy instancje klasy budynek
-        //BuildingClass b = new BuildingClass();
-        //profitIncrease = b.income;
 
         //PanelHeader = GameObject.Find("PanelHeader");
 
         SideBar = GameObject.Find("Sidebar");
         DefaultSideBar = SideBar.transform.Find("DefaultSideBar").gameObject;
-        ClassifiedSideBar = SideBar.transform.Find("ClassifiedSidebar").gameObject;
-        
-        //blackMarketButton.onClick.AddListener(showHideBlackMarket);
-
-    
-        //blackMarketBackButton.onClick.AddListener(showHideBlackMarket);
 
         //anim = PanelHeader.GetComponent<HeaderAnim>(); //get Header object
         anim2 = SideBar.GetComponent<SliderMenuAnim>(); //get DefaultSideBar object
 
-        profitInfo = GameObject.Find("gold").GetComponent<Text>();
-        tobaccoCounter = GameObject.Find("tobaccoCounter").GetComponent<Text>();
+        profitInfo = GameObject.Find("gold").GetComponent<TextMeshProUGUI>();
+        counterText = GameObject.Find("counterText").GetComponent<TextMeshProUGUI>();
 
         obj = GameObject.FindGameObjectsWithTag("Handleable");
 
@@ -92,7 +84,7 @@ public class Highlight : MonoBehaviour
             originalColorsOfSingleBuilding = storeOriginalColor(hit.transform.name);
             startTime = Time.time;
             clickedBuilding = hit.transform.name;
-            tobaccoCounter.transform.position = getClickedObjectPos(clickedBuilding);
+            counterText.transform.position = getClickedObjectPos(clickedBuilding);
             //anim.ShowHideHeader(clickedBuilding);
             if (SideBar.GetComponent<SliderMenuAnim>().getState())
             {
@@ -103,70 +95,23 @@ public class Highlight : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && !countdownToYellowStarted)
             endTime = Time.time;
 
-        if (endTime - startTime > 0.5f && !countdownToYellowStarted)
-        {
+        if (!countdownToYellowStarted)
+            endTimeGreen = Time.time;
 
+
+        if (endTimeGreen - startTime > 0.5f && Input.GetMouseButton(0) && !countdownToYellowStarted)
+        {
+            
             if (physicsRaycast && !Equals(clickedBuilding, "") && !isUIMode)
             {
-             
+
                 setOrginalColorsForAllBuildings(clickedBuilding);
 
                 highlightClicked("green", clickedBuilding);
 
                 BuildingClass building = GameObject.Find(clickedBuilding).GetComponent<BuildingClass>();
 
-                if (building.getIsOwned())
-                {
-                    if (building.getOwnedPanel() == null)
-                    {
-                        building.getNotOwnedPanel().getSidebar().SetActive(true);
-                        building.getNotOwnedPanel().setupBar();
-                    }
-                    else
-                    {
-                        building.getOwnedPanel().getSidebar().SetActive(true);
-                        building.getOwnedPanel().setupBar();
-                    }         
-                }
-                // jeżeli wybrany budynek nie jest owned to obsługujemy panel notowned
-                else
-                {
-                    // jeżeli wybrany budynek nie ma panelu notowned to go tworzymy i ustawiamy pola z nazwą itp.
-                    if (building.getNotOwnedPanel()==null)
-                    {
-                        Debug.Log("Wybrany budynek nie ma panelu not owned" + building.getName());
-                        NotOwnedPanelScript script = new NotOwnedPanelScript(DefaultSideBar, building);
-                        building.setNotOwnedPanel(script);
-                        building.getNotOwnedPanel().setupBar();
-                    }
-                    // jeżeli wybrany budynek ma panel notowned to go aktywujemy i ustawiamy pola z nazwą itp.
-                    else
-                    {
-                        Debug.Log("Wybrany budynek ma panel not owned" + building.getName());
-                        building.getNotOwnedPanel().getSidebar().SetActive(true);
-                        building.getNotOwnedPanel().setupBar();
-                    }
-                    // jeżeli dany budynek ma panel owned to go ukrywamy
-                    if (building.getOwnedPanel() != null)
-                    {
-                        Debug.Log("Wybrany budynek ma panel owned" + building.getName());
-                        building.getOwnedPanel().getSidebar().SetActive(false);
-                    }
-                }
-                //Deaktywacja bocznych paneli dla wszystkich niezaznaczonych
-                foreach (GameObject gameObject in obj)
-                {
-                    if (building.name != gameObject.name && gameObject.GetComponent<BuildingClass>().getNotOwnedPanel()!=null)
-                    {
-                        gameObject.GetComponent<BuildingClass>().getNotOwnedPanel().getSidebar().SetActive(false);
-                    }
-                    if (building.name != gameObject.name && gameObject.GetComponent<BuildingClass>().getOwnedPanel() != null)
-                    {
-                        gameObject.GetComponent<BuildingClass>().getOwnedPanel().getSidebar().SetActive(false);
-                    }
-                }
-
-                anim2.ShowHideMenu(clickedBuilding);
+                makeUI(building);
 
                 clickedBuilding = "";
 
@@ -199,13 +144,11 @@ public class Highlight : MonoBehaviour
 
         if (countToYellow - startTime <= 0)
         {
-            tobaccoCounter.text = "";
+            counterText.text = "";
         }
         else
         {
-            tobaccoCounter.text = (Math.Truncate(countToYellow - startTime)).ToString() + "s";
-            Debug.Log("countToYellow " + countToYellow);
-            Debug.Log("startTime " + startTime);
+            counterText.text = (Math.Truncate(countToYellow - startTime)).ToString() + "s";
         }
 
 
@@ -221,14 +164,63 @@ public class Highlight : MonoBehaviour
             shiningStartTime = 0f;
             shiningEndTime = 0f;
 
-            Debug.Log("Wszedłem we ifa");
-            Debug.Log("Wartość zysku");
-            Debug.Log(GameObject.Find(clickedBuilding).GetComponent<BuildingClass>().income);
-
             startProfitforAll = startProfitforAll + GameObject.Find(clickedBuilding).GetComponent<BuildingClass>().income;
             profitInfo.text =  startProfitforAll.ToString();
             clickedBuilding = "";
         }
+    }
+
+    private void makeUI(BuildingClass building)
+    {
+        if (building.getIsOwned())
+        {
+            if (building.getOwnedPanel() == null)
+            {
+                building.getNotOwnedPanel().getSidebar().SetActive(true);
+                building.getNotOwnedPanel().setupBar();
+            }
+            else
+            {
+                building.getOwnedPanel().getSidebar().SetActive(true);
+                building.getOwnedPanel().setupBar();
+            }
+        }
+        // jeżeli wybrany budynek nie jest owned to obsługujemy panel notowned
+        else
+        {
+            // jeżeli wybrany budynek nie ma panelu notowned to go tworzymy i ustawiamy pola z nazwą itp.
+            if (building.getNotOwnedPanel() == null)
+            {
+                NotOwnedPanelScript script = new NotOwnedPanelScript(DefaultSideBar, building);
+                building.setNotOwnedPanel(script);
+                building.getNotOwnedPanel().setupBar();
+            }
+            // jeżeli wybrany budynek ma panel notowned to go aktywujemy i ustawiamy pola z nazwą itp.
+            else
+            {
+                building.getNotOwnedPanel().getSidebar().SetActive(true);
+                building.getNotOwnedPanel().setupBar();
+            }
+            // jeżeli dany budynek ma panel owned to go ukrywamy
+            if (building.getOwnedPanel() != null)
+            {
+                building.getOwnedPanel().getSidebar().SetActive(false);
+            }
+        }
+        //Deaktywacja bocznych paneli dla wszystkich niezaznaczonych
+        foreach (GameObject gameObject in obj)
+        {
+            if (building.name != gameObject.name && gameObject.GetComponent<BuildingClass>().getNotOwnedPanel() != null)
+            {
+                gameObject.GetComponent<BuildingClass>().getNotOwnedPanel().getSidebar().SetActive(false);
+            }
+            if (building.name != gameObject.name && gameObject.GetComponent<BuildingClass>().getOwnedPanel() != null)
+            {
+                gameObject.GetComponent<BuildingClass>().getOwnedPanel().getSidebar().SetActive(false);
+            }
+        }
+
+        anim2.ShowHideMenu(clickedBuilding);
     }
 
     void setOriginalColors(string gameObjectName, List<Color> originalColorsOfSingleBuilding)
@@ -250,19 +242,14 @@ public class Highlight : MonoBehaviour
         foreach (object o in obj)
         {
             GameObject gameObject2 = (GameObject)o;
+
             if (gameObject2.name != clickedBuilding)
             {
 
                 setOriginalColors(gameObject2.name, originalColorsOfAllBuildings[i]);
-                /*
-                int j = 0;
-                foreach (var material in gameObject2.GetComponent<Renderer>().materials)
-                {
-                    material.color = originalColorsOfAllBuildings[i][j];
-                    j++;
-                }
-                */
+
             }
+
             i++;
         }
     }
@@ -323,5 +310,12 @@ public class Highlight : MonoBehaviour
                 material.color = new Color(1, 1, material.color[2], material.color[3]);
             }
         }
+    }
+
+    void hideBlackMarket(BuildingClass building)
+    {
+        Debug.Log("Chowam blackmarket "+ building.getName());
+        BlackMarketSideBar.SetActive(false);
+        building.getOwnedPanel().getSidebar().SetActive(true);
     }
 }

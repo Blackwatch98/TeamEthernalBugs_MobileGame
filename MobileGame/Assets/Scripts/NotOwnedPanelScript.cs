@@ -19,7 +19,6 @@ public class NotOwnedPanelScript
     public NotOwnedPanelScript(GameObject sidebar, BuildingClass building)
     {
         currentBuilding = building;
-        Debug.Log("Tworzę instancję notOwnedPanel dla " + currentBuilding.getName());
 
         sidebar.SetActive(true);
         Sidebar = GameObject.Instantiate(sidebar, sidebar.transform.parent.gameObject.transform);
@@ -77,7 +76,6 @@ public class NotOwnedPanelScript
 
     public void updateSidebar()
     {
-        Debug.Log("UpdateSidebar z NotOwnedPanel");
         if (currentBuilding.getIsOwned())
         {
             buyButtonObject.SetActive(false);
