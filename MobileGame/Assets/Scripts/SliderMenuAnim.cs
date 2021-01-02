@@ -13,8 +13,8 @@ public class SliderMenuAnim : MonoBehaviour
         if (PanelMenu != null)
         {
             animator = PanelMenu.GetComponent<Animator>();
-            Text text = GameObject.FindGameObjectWithTag("Text").GetComponent<Text>();
-            text.text = buildingName;
+            //Text text = GameObject.FindGameObjectWithTag("Text").GetComponent<Text>();
+            //text.text = buildingName;
             if (animator != null)
             {
                 bool isOpen = animator.GetBool("show");

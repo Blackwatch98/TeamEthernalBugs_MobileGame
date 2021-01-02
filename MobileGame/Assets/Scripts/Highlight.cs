@@ -48,7 +48,7 @@ public class Highlight : MonoBehaviour
         //profitIncrease = b.income;
 
         //PanelHeader = GameObject.Find("PanelHeader");
-        Debug.Log(PanelHeader);
+
         SideBar = GameObject.Find("Sidebar");
         DefaultSideBar = SideBar.transform.Find("DefaultSideBar").gameObject;
         ClassifiedSideBar = SideBar.transform.Find("ClassifiedSidebar").gameObject;
@@ -117,17 +117,53 @@ public class Highlight : MonoBehaviour
 
                 if (building.getIsOwned())
                 {
-                        ClassifiedSideBar.SetActive(true);
-                        OwnedPanelScript script = new OwnedPanelScript(ClassifiedSideBar, building);
-                        building.setOwnedPanel(script);
+                    if (building.getOwnedPanel() == null)
+                    {
+                        building.getNotOwnedPanel().getSidebar().SetActive(true);
+                        building.getNotOwnedPanel().setupBar();
+                    }
+                    else
+                    {
+                        building.getOwnedPanel().getSidebar().SetActive(true);
                         building.getOwnedPanel().setupBar();
+                    }         
                 }
+                // jeżeli wybrany budynek nie jest owned to obsługujemy panel notowned
                 else
                 {
-                        ClassifiedSideBar.SetActive(false);
+                    // jeżeli wybrany budynek nie ma panelu notowned to go tworzymy i ustawiamy pola z nazwą itp.
+                    if (building.getNotOwnedPanel()==null)
+                    {
+                        Debug.Log("Wybrany budynek nie ma panelu not owned" + building.getName());
                         NotOwnedPanelScript script = new NotOwnedPanelScript(DefaultSideBar, building);
                         building.setNotOwnedPanel(script);
                         building.getNotOwnedPanel().setupBar();
+                    }
+                    // jeżeli wybrany budynek ma panel notowned to go aktywujemy i ustawiamy pola z nazwą itp.
+                    else
+                    {
+                        Debug.Log("Wybrany budynek ma panel not owned" + building.getName());
+                        building.getNotOwnedPanel().getSidebar().SetActive(true);
+                        building.getNotOwnedPanel().setupBar();
+                    }
+                    // jeżeli dany budynek ma panel owned to go ukrywamy
+                    if (building.getOwnedPanel() != null)
+                    {
+                        Debug.Log("Wybrany budynek ma panel owned" + building.getName());
+                        building.getOwnedPanel().getSidebar().SetActive(false);
+                    }
+                }
+                //Deaktywacja bocznych paneli dla wszystkich niezaznaczonych
+                foreach (GameObject gameObject in obj)
+                {
+                    if (building.name != gameObject.name && gameObject.GetComponent<BuildingClass>().getNotOwnedPanel()!=null)
+                    {
+                        gameObject.GetComponent<BuildingClass>().getNotOwnedPanel().getSidebar().SetActive(false);
+                    }
+                    if (building.name != gameObject.name && gameObject.GetComponent<BuildingClass>().getOwnedPanel() != null)
+                    {
+                        gameObject.GetComponent<BuildingClass>().getOwnedPanel().getSidebar().SetActive(false);
+                    }
                 }
 
                 anim2.ShowHideMenu(clickedBuilding);

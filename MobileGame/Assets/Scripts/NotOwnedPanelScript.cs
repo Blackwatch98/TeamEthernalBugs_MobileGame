@@ -18,20 +18,21 @@ public class NotOwnedPanelScript
 
     public NotOwnedPanelScript(GameObject sidebar, BuildingClass building)
     {
-
-        Sidebar = GameObject.Instantiate(sidebar, sidebar.transform.parent.gameObject.transform);
-
         currentBuilding = building;
-        Debug.Log("Nowa instancja NotOwnedPanelscript dla obiektu " + currentBuilding.transform.name);
+        Debug.Log("Tworzę instancję notOwnedPanel dla " + currentBuilding.getName());
+
+        sidebar.SetActive(true);
+        Sidebar = GameObject.Instantiate(sidebar, sidebar.transform.parent.gameObject.transform);
+        Sidebar.gameObject.name = sidebar.gameObject.name + " " + currentBuilding.getName();
+        sidebar.SetActive(false);
 
         buyButtonObject = Sidebar.transform.Find("BuyButton").gameObject;
-        //newBuyButtonObject = UnityEngine.Object.Instantiate(oldBuyButtonObject,sidebar.transform);
-        //oldBuyButtonObject.SetActive(false);
-        //newBuyButtonObject.SetActive(true);
         
         buyButton=buyButtonObject.GetComponent<Button>();
 
         ownedButtonObject = Sidebar.transform.Find("OwnButton").gameObject;
+
+        typeText = Sidebar.transform.Find("BuildingClass").GetComponent<Text>();
 
         distilleryButtonObject = Sidebar.transform.Find("DistilleryTypeButton").gameObject;
         casinoButtonObject = Sidebar.transform.Find("CasinoTypeButton").gameObject;
@@ -45,11 +46,7 @@ public class NotOwnedPanelScript
 
         priceText = Sidebar.transform.Find("Price").GetComponent<Text>();
         nameText = Sidebar.transform.Find("NamePanel").Find("Name").GetComponent<Text>();
-    }
 
-    public void setupBar()
-    {
-        updateSidebar();
         buyButton.onClick.AddListener(setToOwned);
         buyButton.onClick.AddListener(updateSidebar);
 
@@ -60,8 +57,22 @@ public class NotOwnedPanelScript
 
         priceText.text = currentBuilding.getPrice().ToString();
         nameText.text = currentBuilding.getName();
-        Debug.Log("cena "+currentBuilding.getPrice().ToString());
-        Debug.Log("setupBar() " + currentBuilding.transform.name);
+
+    }
+
+    public void setupBar()
+    {
+        updateSidebar();
+    }
+
+    public GameObject getSidebar()
+    {
+        return Sidebar;
+    }
+
+    public void setSidebar(GameObject input)
+    {
+        Sidebar = input;
     }
 
     public void updateSidebar()
@@ -86,7 +97,7 @@ public class NotOwnedPanelScript
         casinoButtonObject.SetActive(true);
         nightClubButtonObject.SetActive(true);
         drugsButtonObject.SetActive(true);
-        Debug.Log("Kupuję " + currentBuilding.transform.name);
+        typeText.text = "Wybierz interes! : ";
     }
 
     public void setBuildingType(string type)
@@ -97,5 +108,8 @@ public class NotOwnedPanelScript
         OwnedPanelScript script = new OwnedPanelScript(ClassifiedSidebar, currentBuilding);
         currentBuilding.setOwnedPanel(script);
         currentBuilding.getOwnedPanel().setupBar();
+        //wywalamy default sidebar z edytora unity i zastępujemy go już od razu tym Classifiedem (tym po wybraniu działalności)
+        currentBuilding.getNotOwnedPanel().getSidebar().SetActive(false);
+
     }
 }

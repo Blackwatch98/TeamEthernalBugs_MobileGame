@@ -18,7 +18,7 @@ public class BuildingClass : MonoBehaviour
     public int maxNumOfWorkers;
     public OwnedPanelScript ownedPanelScript=null;
     public NotOwnedPanelScript notOwnedPanelScript=null;
-    public string name;
+    public string buildingName;
 
 
     public BuildingClass(GameObject specifiedBuilding, bool isOwned, string type, float price, float income, float workerIncomeIncrease, int maxNumOfWorkers)
@@ -89,11 +89,11 @@ public class BuildingClass : MonoBehaviour
 
     public void setName(string newName)
     {
-        this.name = newName;
+        this.buildingName = newName;
     }
 
     public string getName()
     {
-        return name;
+        return buildingName;
     }
 }

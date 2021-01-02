@@ -1211,7 +1211,7 @@ RectTransform:
   m_Children:
   - {fileID: 735247344}
   m_Father: {fileID: 1302008510}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -1617,7 +1617,7 @@ RectTransform:
   m_Children:
   - {fileID: 730075485}
   m_Father: {fileID: 1302008510}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -2247,7 +2247,7 @@ MonoBehaviour:
   income: 10
   workerIncomeIncrease: 100
   maxNumOfWorkers: 0
-  name: Salon Aut
+  buildingName: Salon samochodowy
 --- !u!1001 &264808657
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3096,7 +3096,7 @@ MonoBehaviour:
   income: 45
   workerIncomeIncrease: 0
   maxNumOfWorkers: 0
-  name: "Stra\u017C"
+  buildingName: "Str\xF3\u017Ca"
 --- !u!1001 &396632914
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3410,7 +3410,7 @@ RectTransform:
   m_GameObject: {fileID: 454703377}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.66, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1749746783}
   m_RootOrder: 0
@@ -3567,7 +3567,7 @@ RectTransform:
   m_Children:
   - {fileID: 1672724509}
   m_Father: {fileID: 1302008510}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -3771,7 +3771,7 @@ MonoBehaviour:
   income: 0
   workerIncomeIncrease: 0
   maxNumOfWorkers: 0
-  name: TeamEthernalBugs Inc.
+  buildingName: TeamEthernalBugs Inc.
 --- !u!1 &479582458
 GameObject:
   m_ObjectHideFlags: 0
@@ -4438,7 +4438,7 @@ RectTransform:
   m_Children:
   - {fileID: 238798011}
   m_Father: {fileID: 1302008510}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -5549,6 +5549,85 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d8d2fcae15c57f46b59943e3db78e5b, type: 3}
+--- !u!1 &774785097
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 774785098}
+  - component: {fileID: 774785100}
+  - component: {fileID: 774785099}
+  m_Layer: 5
+  m_Name: BuildingClass
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &774785098
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774785097}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.000042706815}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1302008510}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 99.999756, y: -220.00003}
+  m_SizeDelta: {x: -200, y: 50}
+  m_Pivot: {x: 0, y: 1}
+--- !u!114 &774785099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774785097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 30
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1
+  m_Text: Klasa budynku
+--- !u!222 &774785100
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774785097}
+  m_CullTransparentMesh: 0
 --- !u!1001 &778215455
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5655,7 +5734,7 @@ MonoBehaviour:
   income: 0
   workerIncomeIncrease: 0
   maxNumOfWorkers: 0
-  name: Elektrownia Czajka
+  buildingName: Elektrownia
 --- !u!1001 &785688104
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6033,7 +6112,7 @@ RectTransform:
   m_Children:
   - {fileID: 998822734}
   m_Father: {fileID: 1302008510}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -6227,7 +6306,7 @@ MonoBehaviour:
   income: 0
   workerIncomeIncrease: 0
   maxNumOfWorkers: 0
-  name: 
+  buildingName: 
 --- !u!1001 &863789055
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6395,7 +6474,7 @@ RectTransform:
   m_GameObject: {fileID: 868166888}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.66, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 976019291}
   m_RootOrder: 0
@@ -6721,11 +6800,11 @@ RectTransform:
   m_GameObject: {fileID: 976019290}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1, z: 1}
   m_Children:
   - {fileID: 868166889}
   m_Father: {fileID: 1302008510}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -7348,7 +7427,7 @@ MonoBehaviour:
   income: 0
   workerIncomeIncrease: 0
   maxNumOfWorkers: 0
-  name: Posterunek Glin
+  buildingName: Posterunek glin
 --- !u!1001 &1063695411
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7990,7 +8069,7 @@ MonoBehaviour:
   income: 5
   workerIncomeIncrease: 100
   maxNumOfWorkers: 0
-  name: "Laboratorium Kosmetyk\xF3w"
+  buildingName: "Laboratorium kosmetyk\xF3w"
 --- !u!1001 &1250930698
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8092,7 +8171,7 @@ RectTransform:
   m_Children:
   - {fileID: 358193014}
   m_Father: {fileID: 1302008510}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -8210,7 +8289,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1302008510}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -8571,6 +8650,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2100545189}
+  - {fileID: 774785098}
   - {fileID: 976019291}
   - {fileID: 2076169615}
   - {fileID: 2096846892}
@@ -9568,7 +9648,7 @@ MonoBehaviour:
   income: 1000
   workerIncomeIncrease: 100
   maxNumOfWorkers: 0
-  name: Plantacja Tytoniu
+  buildingName: Plantacja tytoniu
 --- !u!1001 &1505211871
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10959,7 +11039,7 @@ MonoBehaviour:
   income: 0
   workerIncomeIncrease: 0
   maxNumOfWorkers: 0
-  name: Fabryka odkurzaczy
+  buildingName: Fabryka "Czajka"
 --- !u!1001 &1738293669
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11501,7 +11581,7 @@ RectTransform:
   m_GameObject: {fileID: 1749746782}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.00015258789}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1, z: 1}
   m_Children:
   - {fileID: 454703378}
   m_Father: {fileID: 526202912}
@@ -12708,7 +12788,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1302008510}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -12852,7 +12932,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1302008510}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -13171,7 +13251,7 @@ MonoBehaviour:
   income: 20
   workerIncomeIncrease: 0
   maxNumOfWorkers: 0
-  name: Ratusz
+  buildingName: Ratusz
 --- !u!1001 &2137156754
 PrefabInstance:
   m_ObjectHideFlags: 0
