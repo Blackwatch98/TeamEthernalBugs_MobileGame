@@ -26,6 +26,9 @@ public class SelectBuildingScript : MonoBehaviour
     private SliderMenuAnim activeSlider;
     private SliderMenuAnim anim2;
 
+    //Audio
+    public AudioSource ui3, building_shoopingcenter;
+
     void Start()
     {
         PanelHeader = GameObject.Find("PanelHeader");
@@ -73,6 +76,8 @@ public class SelectBuildingScript : MonoBehaviour
                     building = selectedObject.GetComponent<BuildingClass>();
 
                     anim.ShowHideHeader();
+
+                    playBuildingtheme(building.getType());
 
                     Debug.Log(building.getType());
                     if (building.getIsOwned() && building.getType() != "")
@@ -126,5 +131,13 @@ public class SelectBuildingScript : MonoBehaviour
             ClassifiedSideBar.SetActive(true);
         else
             ClassifiedSideBar.SetActive(false);
+    }
+
+    private void playBuildingtheme(string type)
+    {
+        if (type == "shoopingcenter")
+        {
+            building_shoopingcenter.Play();
+        }
     }
 }

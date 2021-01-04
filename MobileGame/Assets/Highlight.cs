@@ -20,6 +20,9 @@ public class Highlight : MonoBehaviour
     Text tobaccoCounter;
     bool countdownToYellowStarted = false;
 
+    //Audio
+    public AudioSource ui1, ui2, notif1;
+
     // Start is called before the first frame update
 
     void Start()
@@ -36,7 +39,7 @@ public class Highlight : MonoBehaviour
         obj = GameObject.FindGameObjectsWithTag("Handleable");
         foreach(var sth in obj)
         {
-            Debug.Log("Handlable objects" + ((GameObject)sth).name);
+            //Debug.Log("Handlable objects" + ((GameObject)sth).name);
         }
 
 
@@ -68,6 +71,7 @@ public class Highlight : MonoBehaviour
             startTime = Time.time;
             clickedBuilding = hit.transform.name;
             tobaccoCounter.transform.position = getClickedObjectPos(clickedBuilding);
+            ui1.Play();
         }
 
         if (Input.GetMouseButtonUp(0) && !countdownToYellowStarted)
@@ -78,7 +82,7 @@ public class Highlight : MonoBehaviour
 
             if (physicsRaycast && !Equals(clickedBuilding, ""))
             {
-
+               
                 setOrginalColorsForAllBuildings(clickedBuilding);
 
                 highlightClicked("green", clickedBuilding);
@@ -99,9 +103,10 @@ public class Highlight : MonoBehaviour
 
             if (countToYellow - startTime > delayToPick && clickedBuilding != "")
             {
+                notif1.Play();
 
                 shiningStartTime = Time.time;
-
+                
                 highlightClicked("yellow", clickedBuilding);
 
                 countToYellow = 0f;
@@ -118,8 +123,8 @@ public class Highlight : MonoBehaviour
         else
         {
             tobaccoCounter.text = (Math.Truncate(countToYellow - startTime)).ToString() + "s";
-            Debug.Log("countToYellow " + countToYellow);
-            Debug.Log("startTime " + startTime);
+            //Debug.Log("countToYellow " + countToYellow);
+            //Debug.Log("startTime " + startTime);
         }
 
 
