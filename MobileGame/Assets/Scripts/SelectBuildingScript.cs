@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class SelectBuildingScript : MonoBehaviour
 {
     private float holdDownStartTime;
-    private readonly float holdTimeLimit = 1f; // 1s
+    private readonly float holdTimeLimit = 0.5f; // 1s
     private GameObject selectedObject;
 
     private BuildingClass building;
@@ -72,7 +72,7 @@ public class SelectBuildingScript : MonoBehaviour
                     selectedObject = hit.transform.gameObject;
                     building = selectedObject.GetComponent<BuildingClass>();
 
-                    anim.ShowHideHeader();
+                   // anim.ShowHideHeader();
 
                     Debug.Log(building.getType());
                     if (building.getIsOwned() && building.getType() != "")
@@ -88,7 +88,7 @@ public class SelectBuildingScript : MonoBehaviour
                         script.setupBar();
                     }
                     
-                    anim2.ShowHideMenu();
+                   // anim2.ShowHideMenu();
                 }
             }
             //Debug.Log(holdDownTime + " tyle trzymałeś");
@@ -97,10 +97,10 @@ public class SelectBuildingScript : MonoBehaviour
         //cancel ui panel
         if(Input.GetMouseButtonDown(0) && isUIMode && !isMouseOverUI())
         {
-            anim.ShowHideHeader();
+            //anim.ShowHideHeader();
             isUIMode = false;
 
-            anim2.ShowHideMenu();
+            //anim2.ShowHideMenu();
 
             holdMouseButtonFlag = false;
             building = null;
