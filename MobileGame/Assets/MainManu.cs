@@ -16,12 +16,44 @@ public class MainManu : MonoBehaviour
    {
       if (CheckForDailyRewardAvailable())
       {
-         int gold = PlayerPrefs.GetInt("gold", 0);
-         int day = PlayerPrefs.GetInt("day", 0) + 1;
-         int gainedGold = 100 * day;
-         PlayerPrefs.SetInt("gold", gold + gainedGold);
-         PlayerPrefs.SetInt("day", day);
-         EditorUtility.DisplayDialog("Daily reward", "Day: " + day.ToString() + ", gained " + gainedGold.ToString() + " gold", "OK");
+         int rand = UnityEngine.Random.Range(0, 4);
+         // gold
+         if (rand == 0)
+         {
+            int gold = PlayerPrefs.GetInt("gold", 0);
+            int day = PlayerPrefs.GetInt("day", 0) + 1;
+            int gainedGold = 100 * day;
+            PlayerPrefs.SetInt("gold", gold + gainedGold);
+            PlayerPrefs.SetInt("day", day);
+            EditorUtility.DisplayDialog("Daily reward", "Day: " + day.ToString() + ", gained " + gainedGold.ToString() + " gold", "OK");
+         }
+         // workers
+         else if (rand == 1)
+         {
+            int day = PlayerPrefs.GetInt("day", 0) + 1;
+            PlayerPrefs.SetInt("day", day);
+            EditorUtility.DisplayDialog("Daily reward", "Day: " + day.ToString() + ", gained 1 worker", "OK");
+         }
+         // dollars
+         else if (rand == 2)
+         {
+            int dollars = PlayerPrefs.GetInt("dollars", 0);
+            int day = PlayerPrefs.GetInt("day", 0) + 1;
+            int gainedDollars = 10 * day;
+            PlayerPrefs.SetInt("dollars", dollars + gainedDollars);
+            PlayerPrefs.SetInt("day", day);
+            EditorUtility.DisplayDialog("Daily reward", "Day: " + day.ToString() + ", gained " + gainedDollars.ToString() + " dollars", "OK");
+         }
+         // booster
+         else if (rand == 3)
+         {
+            float booster = PlayerPrefs.GetFloat("booster", 2.0f);
+            int day = PlayerPrefs.GetInt("day", 0) + 1;
+            float gainedBooster = 0.05f * day;
+            PlayerPrefs.SetFloat("booster", booster - gainedBooster);
+            PlayerPrefs.SetInt("day", day);
+            EditorUtility.DisplayDialog("Daily reward", "Day: " + day.ToString() + ", gained " + gainedBooster.ToString() + "s booster", "OK");
+         }
       }
    }
 
