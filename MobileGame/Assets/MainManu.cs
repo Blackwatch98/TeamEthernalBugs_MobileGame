@@ -1,12 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 using System;
 public class MainManu : MonoBehaviour
 {
-   public static readonly double REWARD_DELAY = 20.0;
+   public static readonly double REWARD_DELAY = 1.0;
+   public GameObject Panel;
+   public Text RewardInfo;
+   public Image Reward;
+   public Sprite Gold;
+   public Sprite Dollars;
+   public Sprite Worker;
+   public Sprite Booster;
+   public static int counter = 0;
    public void PlayGame()
    {
       SceneManager.LoadScene("TestBuildings");
@@ -16,6 +25,7 @@ public class MainManu : MonoBehaviour
    {
       if (CheckForDailyRewardAvailable())
       {
+         Panel.gameObject.SetActive(true);
          int rand = UnityEngine.Random.Range(0, 4);
          // gold
          if (rand == 0)
@@ -25,14 +35,16 @@ public class MainManu : MonoBehaviour
             int gainedGold = 100 * day;
             PlayerPrefs.SetInt("gold", gold + gainedGold);
             PlayerPrefs.SetInt("day", day);
-            EditorUtility.DisplayDialog("Daily reward", "Day: " + day.ToString() + ", gained " + gainedGold.ToString() + " gold", "OK");
+            RewardInfo.text = "+ " + gainedGold.ToString();
+            Reward.sprite = Gold;
          }
          // workers
          else if (rand == 1)
          {
             int day = PlayerPrefs.GetInt("day", 0) + 1;
             PlayerPrefs.SetInt("day", day);
-            EditorUtility.DisplayDialog("Daily reward", "Day: " + day.ToString() + ", gained 1 worker", "OK");
+            RewardInfo.text = "+ 1";
+            Reward.sprite = Worker;
          }
          // dollars
          else if (rand == 2)
@@ -42,7 +54,8 @@ public class MainManu : MonoBehaviour
             int gainedDollars = 10 * day;
             PlayerPrefs.SetInt("dollars", dollars + gainedDollars);
             PlayerPrefs.SetInt("day", day);
-            EditorUtility.DisplayDialog("Daily reward", "Day: " + day.ToString() + ", gained " + gainedDollars.ToString() + " dollars", "OK");
+            RewardInfo.text = "+ " + gainedDollars.ToString();
+            Reward.sprite = Dollars;
          }
          // booster
          else if (rand == 3)
@@ -52,7 +65,8 @@ public class MainManu : MonoBehaviour
             float gainedBooster = 0.05f * day;
             PlayerPrefs.SetFloat("booster", booster - gainedBooster);
             PlayerPrefs.SetInt("day", day);
-            EditorUtility.DisplayDialog("Daily reward", "Day: " + day.ToString() + ", gained " + gainedBooster.ToString() + "s booster", "OK");
+            RewardInfo.text = "- " + gainedBooster.ToString() + "s";
+            Reward.sprite = Booster;
          }
       }
    }
