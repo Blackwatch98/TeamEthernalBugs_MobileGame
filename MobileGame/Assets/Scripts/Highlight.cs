@@ -44,6 +44,7 @@ public class Highlight : MonoBehaviour
         endTimeGreen = 0f;
         shiningStartTime = 0f;
         shiningEndTime = 0f;
+    
 
         //PanelHeader = GameObject.Find("PanelHeader");
 
@@ -68,6 +69,13 @@ public class Highlight : MonoBehaviour
                 objectMaterials.Add(material.color);
             }
             originalColorsOfAllBuildings.Add(objectMaterials);
+        }
+
+        //SHARED PREFS
+        if (PlayerPrefs.GetFloat("playerCoinsWealth") != null)
+        {
+            startProfitforAll = PlayerPrefs.GetFloat("playerCoinsWealth");
+            profitInfo.text = startProfitforAll.ToString();
         }
     }
 
@@ -167,6 +175,9 @@ public class Highlight : MonoBehaviour
             startProfitforAll = startProfitforAll + GameObject.Find(clickedBuilding).GetComponent<BuildingClass>().income;
             profitInfo.text =  startProfitforAll.ToString();
             clickedBuilding = "";
+
+            //SHARED PREFS
+            PlayerPrefs.SetFloat("playerCoinsWealth", startProfitforAll);
         }
     }
 
