@@ -3,7 +3,14 @@ guid: 60865973ace3cd94b88689ccf8646aac
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Panel: {instanceID: 0}
+  - RewardInfo: {instanceID: 0}
+  - Reward: {instanceID: 0}
+  - Gold: {instanceID: 0}
+  - Dollars: {instanceID: 0}
+  - Worker: {instanceID: 0}
+  - Booster: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
