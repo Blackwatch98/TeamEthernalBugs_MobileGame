@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 using System;
-public class MainManu : MonoBehaviour
+public class MainMenu : MonoBehaviour
 {
    public static readonly double REWARD_DELAY = 1.0;
    public GameObject Panel;
@@ -16,6 +16,7 @@ public class MainManu : MonoBehaviour
    public Sprite Worker;
    public Sprite Booster;
    public static int counter = 0;
+
    public void PlayGame()
    {
       SceneManager.LoadScene("TestBuildings");
