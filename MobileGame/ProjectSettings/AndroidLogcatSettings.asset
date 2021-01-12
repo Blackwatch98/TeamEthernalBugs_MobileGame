@@ -1,13 +1,44 @@
 {
-    "m_SelectedDeviceId": "",
+    "m_SelectedDeviceId": "34c364697d63",
     "m_SelectedPackage": {
-        "deviceId": "",
-        "name": "",
-        "processId": 0,
+        "deviceId": "34c364697d63",
+        "name": "com.pgianup.ClikersMaffia",
+        "processId": 32473,
         "exited": false
     },
     "m_SelectedPriority": 0,
-    "m_KnownPackagesForSerialization": [],
+    "m_KnownPackagesForSerialization": [
+        {
+            "deviceId": "34c364697d63",
+            "name": "com.pgianup.ClikersMaffia",
+            "processId": 26520,
+            "exited": false
+        },
+        {
+            "deviceId": "34c364697d63",
+            "name": "com.pgianup.ClikersMaffia",
+            "processId": 27452,
+            "exited": false
+        },
+        {
+            "deviceId": "34c364697d63",
+            "name": "com.pgianup.ClikersMaffia",
+            "processId": 27955,
+            "exited": true
+        },
+        {
+            "deviceId": "34c364697d63",
+            "name": "com.pgianup.ClikersMaffia",
+            "processId": 28566,
+            "exited": true
+        },
+        {
+            "deviceId": "34c364697d63",
+            "name": "com.pgianup.ClikersMaffia",
+            "processId": 32473,
+            "exited": false
+        }
+    ],
     "m_Tags": {
         "m_Entries": [
             {
@@ -41,9 +72,20 @@
         ]
     },
     "m_MemoryViewerState": {
-        "MemoryWindowHeight": 0.0,
-        "MemoryWindowWidth": 0.0,
-        "MemoryTypeEnabled": [],
+        "MemoryWindowHeight": 300.0,
+        "MemoryWindowWidth": 170.0,
+        "MemoryTypeEnabled": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+        ],
         "MemoryGroup": 1,
         "Behavior": 1
     },
