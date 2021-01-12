@@ -8,9 +8,12 @@ public class OwnedPanelScript
     private GameObject SideBar, TopSideBar, BlackMarketSideBar;
     private Text typeText;
     private Text nameText;
-    private Text incomeText;
+    private Text incomeText, lossText;
     private Button hireWorkersButton, blackMarketBackButton;
     private BuildingClass currentBuilding;
+    private Image buildingImage;
+
+    
 
     public OwnedPanelScript(GameObject sidebar, BuildingClass building)
     {
@@ -37,7 +40,10 @@ public class OwnedPanelScript
         typeText = SideBar.transform.Find("BuildingClass").GetComponent<Text>();
         nameText = SideBar.transform.Find("NamePanel").Find("Name").GetComponent<Text>();
         incomeText = SideBar.transform.Find("Income").GetComponent<Text>();
+        lossText = SideBar.transform.Find("LossInfo").GetComponent<Text>();
         hireWorkersButton = SideBar.transform.Find("HireWorkersButton").GetComponent<Button>();
+
+        buildingImage = SideBar.transform.Find("ObjectImage").GetComponent<Image>();
     }
 
     public void setupBar()
@@ -45,7 +51,11 @@ public class OwnedPanelScript
         typeText.text = currentBuilding.getType();
         nameText.text = currentBuilding.getName();
         incomeText.text = currentBuilding.getIncome().ToString();
+        lossText.text = currentBuilding.getStartWorkerCost().ToString();
+        buildingImage.sprite = currentBuilding.getImage();
+
         hireWorkersButton.onClick.AddListener(() => currentBuilding.raiseIncome());
+        hireWorkersButton.onClick.AddListener(() => Highlight.decreaseIncome(currentBuilding));
         hireWorkersButton.onClick.AddListener(() => updateBar());
     }
 
@@ -61,7 +71,13 @@ public class OwnedPanelScript
 
     public void updateBar()
     {
+        
         incomeText.text = currentBuilding.getIncome().ToString();
+
+        lossText.text = currentBuilding.getStartWorkerCost().ToString();
+        
+        Debug.Log("Start worker cost " + currentBuilding.getStartWorkerCost());
+        Debug.Log("Mnoże razy " + Highlight.hireMultiplier);
     }
 
     private void showHideBlackMarket()
