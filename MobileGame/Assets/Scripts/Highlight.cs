@@ -9,16 +9,17 @@ using TMPro;
 public class Highlight : MonoBehaviour
 {
     int delayToPick = 5;
-    float startProfitforAll;
+    public static int hireMultiplier = 2;
+    public static float startProfitforAll;
     float profitIncrease;
-    double startTime, endTime, countToYellow, shiningStartTime, shiningEndTime, endTimeGreen;
+   public static double startTime, startTimeFading, endTimeFading, endTime, countToYellow, shiningStartTime, shiningEndTime, endTimeGreen;
     string clickedBuilding = "";
     Camera cam;
     Transform clickedObject;
     object[] obj;
     List<Color> originalColorsOfSingleBuilding = new List<Color>();
     List<List<Color>> originalColorsOfAllBuildings;
-    TextMeshProUGUI profitInfo, counterText;
+    public static TextMeshProUGUI profitInfo, counterText, lossIndicator;
     bool countdownToYellowStarted = false;
 
     //UI Elements
@@ -39,6 +40,7 @@ public class Highlight : MonoBehaviour
     void Start()
     {
         startTime = 0f;
+        
         endTime = 0f;
         countToYellow = 0f;
         endTimeGreen = 0f;
@@ -55,6 +57,8 @@ public class Highlight : MonoBehaviour
         anim2 = SideBar.GetComponent<SliderMenuAnim>(); //get DefaultSideBar object
 
         profitInfo = GameObject.Find("gold").GetComponent<TextMeshProUGUI>();
+        lossIndicator = GameObject.Find("LossIndicator").GetComponent<TextMeshProUGUI>();
+
         counterText = GameObject.Find("counterText").GetComponent<TextMeshProUGUI>();
 
         obj = GameObject.FindGameObjectsWithTag("Handleable");
@@ -175,10 +179,18 @@ public class Highlight : MonoBehaviour
             startProfitforAll = startProfitforAll + GameObject.Find(clickedBuilding).GetComponent<BuildingClass>().income;
             profitInfo.text =  startProfitforAll.ToString();
             clickedBuilding = "";
-
+            Debug.Log(startProfitforAll);
             //SHARED PREFS
             PlayerPrefs.SetFloat("playerCoinsWealth", startProfitforAll);
         }
+
+        endTimeFading = Time.time;
+
+        if (endTimeFading-startTimeFading >= 2.0f)
+        {
+            lossIndicator.text = " ";
+        }
+
     }
 
     private void makeUI(BuildingClass building)
@@ -329,4 +341,18 @@ public class Highlight : MonoBehaviour
         BlackMarketSideBar.SetActive(false);
         building.getOwnedPanel().getSidebar().SetActive(true);
     }
+
+   public static void decreaseIncome(BuildingClass building)
+    {
+        startProfitforAll -= building.getStartWorkerCost();
+        profitInfo.text = startProfitforAll.ToString();
+        startTimeFading = Time.time;
+        lossIndicator.text = "-" + building.getStartWorkerCost();
+       
+
+        float zm = building.getStartWorkerCost() * hireMultiplier;
+        Debug.Log("ZM " + zm);
+        building.setStartWorkerCost(zm);
+    }
+
 }

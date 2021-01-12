@@ -19,6 +19,8 @@ public class BuildingClass : MonoBehaviour
     public OwnedPanelScript ownedPanelScript=null;
     public NotOwnedPanelScript notOwnedPanelScript=null;
     public string buildingName;
+    public Sprite buildingImage;
+    public float startWorkerCost;
 
 
     public BuildingClass(GameObject specifiedBuilding, bool isOwned, string type, float price, float income, float workerIncomeIncrease, int maxNumOfWorkers)
@@ -67,6 +69,8 @@ public class BuildingClass : MonoBehaviour
         income += workerIncomeIncrease;
     }
 
+
+
     public void setNotOwnedPanel(NotOwnedPanelScript input)
     {
         notOwnedPanelScript = input;
@@ -95,5 +99,19 @@ public class BuildingClass : MonoBehaviour
     public string getName()
     {
         return buildingName;
+    }
+    public Sprite getImage()
+    {
+        return buildingImage;
+    }
+
+    public float getStartWorkerCost()
+    {
+        return startWorkerCost;
+    }
+
+    public void setStartWorkerCost(float input)
+    {
+        startWorkerCost = input;
     }
 }

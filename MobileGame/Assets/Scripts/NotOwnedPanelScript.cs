@@ -15,6 +15,7 @@ public class NotOwnedPanelScript
     private Text priceText;
     private Text nameText;
     private BuildingClass currentBuilding;
+    private Image buildingImage;
 
     public NotOwnedPanelScript(GameObject sidebar, BuildingClass building)
     {
@@ -56,12 +57,14 @@ public class NotOwnedPanelScript
 
         priceText.text = currentBuilding.getPrice().ToString();
         nameText.text = currentBuilding.getName();
+        buildingImage = Sidebar.transform.Find("ObjectImage").GetComponent<Image>();
 
     }
 
     public void setupBar()
     {
         updateSidebar();
+        buildingImage.sprite = currentBuilding.getImage();
     }
 
     public GameObject getSidebar()
