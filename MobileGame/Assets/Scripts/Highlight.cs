@@ -362,7 +362,7 @@ public class Highlight : MonoBehaviour
       var sr = File.CreateText("building_classes.json");
       foreach (var component in components)
       {
-         string json = JsonUtility.ToJson(component);
+         string json = JsonUtility.ToJson(component, true);
          sr.WriteLine(json);
       }
       sr.Close();

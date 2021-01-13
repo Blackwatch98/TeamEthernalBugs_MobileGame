@@ -1,5 +1,32 @@
-{"specifiedBuilding":{"instanceID":0},"isOwned":false,"type":"","price":0.0,"income":0.0,"workerIncomeIncrease":0.0,"maxNumOfWorkers":0,"buildingName":"TeamEthernalBugs Inc.","buildingImage":{"instanceID":19026},"startWorkerCost":0.0}
-{"specifiedBuilding":{"instanceID":0},"isOwned":false,"type":"","price":0.0,"income":0.0,"workerIncomeIncrease":0.0,"maxNumOfWorkers":0,"buildingName":"Elektrownia","buildingImage":{"instanceID":19758},"startWorkerCost":5.0}
-{"specifiedBuilding":{"instanceID":0},"isOwned":false,"type":"","price":0.0,"income":0.0,"workerIncomeIncrease":0.0,"maxNumOfWorkers":0,"buildingName":"Posterunek glin","buildingImage":{"instanceID":20194},"startWorkerCost":0.0}
-{"specifiedBuilding":{"instanceID":0},"isOwned":false,"type":"","price":100.0,"income":5.0,"workerIncomeIncrease":100.0,"maxNumOfWorkers":0,"buildingName":"Laboratorium kosmetyków","buildingImage":{"instanceID":20596},"startWorkerCost":5.0}
-{"specifiedBuilding":{"instanceID":0},"isOwned":false,"type":"","price":0.0,"income":0.0,"workerIncomeIncrease":0.0,"maxNumOfWorkers":0,"buildingName":"Fabryka \"Czajka\"","buildingImage":{"instanceID":17160},"startWorkerCost":5.0}
+{
+    "specifiedBuilding": {
+        "instanceID": 0
+    },
+    "isOwned": false,
+    "type": "",
+    "price": 0.0,
+    "income": 45.0,
+    "workerIncomeIncrease": 0.0,
+    "maxNumOfWorkers": 0,
+    "buildingName": "Stróża",
+    "buildingImage": {
+        "instanceID": 17462
+    },
+    "startWorkerCost": 5.0
+}
+{
+    "specifiedBuilding": {
+        "instanceID": 0
+    },
+    "isOwned": false,
+    "type": "",
+    "price": 100.0,
+    "income": 5.0,
+    "workerIncomeIncrease": 100.0,
+    "maxNumOfWorkers": 0,
+    "buildingName": "Laboratorium kosmetyków",
+    "buildingImage": {
+        "instanceID": 20596
+    },
+    "startWorkerCost": 5.0
+}
