@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine.UI;
 using System;
 
-
+[Serializable]
 public class BuildingClass : MonoBehaviour
 {
     public GameObject specifiedBuilding;
