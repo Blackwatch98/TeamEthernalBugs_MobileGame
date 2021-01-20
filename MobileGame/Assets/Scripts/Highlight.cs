@@ -359,12 +359,17 @@ public class Highlight : MonoBehaviour
    void OnDestroy()
    {
       var components = GameObject.FindObjectsOfType<BuildingClass>();
+      List<BuildingClass> buildingClassesList = new List<BuildingClass>();
       var sr = File.CreateText("building_classes.json");
       foreach (var component in components)
       {
-         string json = JsonUtility.ToJson(component, true);
-         sr.WriteLine(json);
+         //string json = JsonUtility.ToJson(component, true);
+         //sr.WriteLine(json);
+         buildingClassesList.Add((BuildingClass)component);
       }
+      BuildingClass[] buildingClasses = buildingClassesList.ToArray();
+      string json = JsonHelper.ToJson(buildingClasses, true);
+      sr.WriteLine(json);
       sr.Close();
    }
 }

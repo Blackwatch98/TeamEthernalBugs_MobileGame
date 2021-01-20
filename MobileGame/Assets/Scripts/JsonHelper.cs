@@ -5,11 +5,17 @@ using UnityEngine;
 
 public static class JsonHelper
 {
-    public static T[] FromJson<T>(string json)
-    {
-      Wrapper<T> wrapper = JsonUtility.FromJson<wrapper<T>>(json);
+   [Serializable]
+   public class Wrapper<T>
+   {
+      public T[] Items;
+   }
+
+   public static T[] FromJson<T>(string json)
+   {
+      Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(json);
       return wrapper.Items;
-    }
+   }
 
     public static string ToJson<T>(T[] array)
     {
@@ -23,11 +29,5 @@ public static class JsonHelper
       Wrapper<T> wrapper = new Wrapper<T>();
       wrapper.Items = array;
       return JsonUtility.ToJson(wrapper, prettyPrint);
-   }
-
-   [Serializable]
-   private class Wrapper<T>
-   {
-      public T[] Items;
    }
 }
