@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
 using System;
+using System.IO;
 using TMPro;
 
 public class Highlight : MonoBehaviour
@@ -343,16 +344,27 @@ public class Highlight : MonoBehaviour
     }
 
    public static void decreaseIncome(BuildingClass building)
-    {
-        startProfitforAll -= building.getStartWorkerCost();
-        profitInfo.text = startProfitforAll.ToString();
-        startTimeFading = Time.time;
-        lossIndicator.text = "-" + building.getStartWorkerCost();
+   {
+      startProfitforAll -= building.getStartWorkerCost();
+      profitInfo.text = startProfitforAll.ToString();
+      startTimeFading = Time.time;
+      lossIndicator.text = "-" + building.getStartWorkerCost();
        
 
-        float zm = building.getStartWorkerCost() * hireMultiplier;
-        Debug.Log("ZM " + zm);
-        building.setStartWorkerCost(zm);
-    }
+      float zm = building.getStartWorkerCost() * hireMultiplier;
+      Debug.Log("ZM " + zm);
+      building.setStartWorkerCost(zm);
+   }
 
+   void OnDestroy()
+   {
+      var components = GameObject.FindObjectsOfType<BuildingClass>();
+      var sr = File.CreateText("building_classes.json");
+      foreach (var component in components)
+      {
+         string json = JsonUtility.ToJson(component, true);
+         sr.WriteLine(json);
+      }
+      sr.Close();
+   }
 }
