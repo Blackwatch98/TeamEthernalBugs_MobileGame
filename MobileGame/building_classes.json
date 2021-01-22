@@ -1,10 +1,128 @@
 {
-    "Items": [
-        {
-            "instanceID": 16488
-        },
-        {
-            "instanceID": 17046
-        }
-    ]
+    "specifiedBuilding": {
+        "instanceID": 0
+    },
+    "isOwned": false,
+    "type": "",
+    "price": 100.0,
+    "income": 100.0,
+    "workerIncomeIncrease": 100.0,
+    "maxNumOfWorkers": 0,
+    "buildingName": "Salon samochodowy",
+    "buildingImage": {
+        "instanceID": 17554
+    },
+    "startWorkerCost": 5.0
+}
+{
+    "specifiedBuilding": {
+        "instanceID": 0
+    },
+    "isOwned": false,
+    "type": "",
+    "price": 0.0,
+    "income": 0.0,
+    "workerIncomeIncrease": 0.0,
+    "maxNumOfWorkers": 0,
+    "buildingName": "Elektrownia",
+    "buildingImage": {
+        "instanceID": 17652
+    },
+    "startWorkerCost": 5.0
+}
+{
+    "specifiedBuilding": {
+        "instanceID": 0
+    },
+    "isOwned": false,
+    "type": "",
+    "price": 0.0,
+    "income": 0.0,
+    "workerIncomeIncrease": 0.0,
+    "maxNumOfWorkers": 0,
+    "buildingName": "",
+    "buildingImage": {
+        "instanceID": 0
+    },
+    "startWorkerCost": 0.0
+}
+{
+    "specifiedBuilding": {
+        "instanceID": 0
+    },
+    "isOwned": false,
+    "type": "",
+    "price": 0.0,
+    "income": 0.0,
+    "workerIncomeIncrease": 0.0,
+    "maxNumOfWorkers": 0,
+    "buildingName": "Posterunek glin",
+    "buildingImage": {
+        "instanceID": 17692
+    },
+    "startWorkerCost": 0.0
+}
+{
+    "specifiedBuilding": {
+        "instanceID": 0
+    },
+    "isOwned": false,
+    "type": "",
+    "price": 100.0,
+    "income": 5.0,
+    "workerIncomeIncrease": 100.0,
+    "maxNumOfWorkers": 0,
+    "buildingName": "Laboratorium kosmetyków",
+    "buildingImage": {
+        "instanceID": 17702
+    },
+    "startWorkerCost": 5.0
+}
+{
+    "specifiedBuilding": {
+        "instanceID": 0
+    },
+    "isOwned": false,
+    "type": "",
+    "price": 100.0,
+    "income": 1000.0,
+    "workerIncomeIncrease": 100.0,
+    "maxNumOfWorkers": 0,
+    "buildingName": "Plantacja tytoniu",
+    "buildingImage": {
+        "instanceID": 17724
+    },
+    "startWorkerCost": 5.0
+}
+{
+    "specifiedBuilding": {
+        "instanceID": 0
+    },
+    "isOwned": false,
+    "type": "",
+    "price": 0.0,
+    "income": 0.0,
+    "workerIncomeIncrease": 0.0,
+    "maxNumOfWorkers": 0,
+    "buildingName": "Fabryka \"Czajka\"",
+    "buildingImage": {
+        "instanceID": 17740
+    },
+    "startWorkerCost": 5.0
+}
+{
+    "specifiedBuilding": {
+        "instanceID": 0
+    },
+    "isOwned": false,
+    "type": "",
+    "price": 0.0,
+    "income": 20.0,
+    "workerIncomeIncrease": 0.0,
+    "maxNumOfWorkers": 0,
+    "buildingName": "Ratusz",
+    "buildingImage": {
+        "instanceID": 17766
+    },
+    "startWorkerCost": 5.0
 }
