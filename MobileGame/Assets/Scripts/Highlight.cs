@@ -82,6 +82,21 @@ public class Highlight : MonoBehaviour
             startProfitforAll = PlayerPrefs.GetFloat("playerCoinsWealth");
             profitInfo.text = startProfitforAll.ToString();
         }
+
+         var components = GameObject.FindObjectsOfType<BuildingClass>();
+         var jsonString = File.ReadAllText("building_classes.json");
+         BuildingClassStub[] buildingClasses = JsonHelper.FromJson<BuildingClassStub>(jsonString);
+         foreach (var buildingClassStub in buildingClasses)
+         {
+            foreach (var component in components)
+            {
+               if (buildingClassStub.buildingName == ((BuildingClass)component).buildingName)
+               {
+                  Debug.Log("Deserialize of building: " + buildingClassStub.buildingName);
+                  ((BuildingClass)component).Deserialize(buildingClassStub);
+               }
+            }
+         }
     }
 
     // void is called once per frame

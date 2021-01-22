@@ -23,22 +23,6 @@
             "isOwned": false,
             "type": "",
             "price": 0.0,
-            "income": 45.0,
-            "workerIncomeIncrease": 0.0,
-            "maxNumOfWorkers": 0,
-            "buildingName": "Stróża",
-            "buildingImage": {
-                "instanceID": 17588
-            },
-            "startWorkerCost": 5.0
-        },
-        {
-            "specifiedBuilding": {
-                "instanceID": 0
-            },
-            "isOwned": false,
-            "type": "",
-            "price": 0.0,
             "income": 0.0,
             "workerIncomeIncrease": 0.0,
             "maxNumOfWorkers": 0,
@@ -125,38 +109,6 @@
             "buildingName": "Plantacja tytoniu",
             "buildingImage": {
                 "instanceID": 17724
-            },
-            "startWorkerCost": 5.0
-        },
-        {
-            "specifiedBuilding": {
-                "instanceID": 0
-            },
-            "isOwned": false,
-            "type": "",
-            "price": 0.0,
-            "income": 0.0,
-            "workerIncomeIncrease": 0.0,
-            "maxNumOfWorkers": 0,
-            "buildingName": "Fabryka \"Czajka\"",
-            "buildingImage": {
-                "instanceID": 17740
-            },
-            "startWorkerCost": 5.0
-        },
-        {
-            "specifiedBuilding": {
-                "instanceID": 0
-            },
-            "isOwned": false,
-            "type": "",
-            "price": 0.0,
-            "income": 20.0,
-            "workerIncomeIncrease": 0.0,
-            "maxNumOfWorkers": 0,
-            "buildingName": "Ratusz",
-            "buildingImage": {
-                "instanceID": 17766
             },
             "startWorkerCost": 5.0
         }
