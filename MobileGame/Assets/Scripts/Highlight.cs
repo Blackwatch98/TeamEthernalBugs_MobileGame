@@ -359,47 +359,17 @@ public class Highlight : MonoBehaviour
    void OnDestroy()
    {
       var components = GameObject.FindObjectsOfType<BuildingClass>();
-      List<BuildingClass> buildingClassesList = new List<BuildingClass>();
+      List<BuildingClassStub> buildingClassesList = new List<BuildingClassStub>();
       var sr = File.CreateText("building_classes.json");
       foreach (var component in components)
       {
-         string json = JsonUtility.ToJson(component, true);
-         sr.WriteLine(json);
-         //buildingClassesList.Add((BuildingClass)component);
+         //string json = JsonUtility.ToJson(component.Serialize(), true);
+         //sr.WriteLine(json);
+         buildingClassesList.Add(((BuildingClass)component).Serialize());
       }
-      //BuildingClass[] buildingClasses = buildingClassesList.ToArray();
-      //string json = JsonHelper.ToJson(buildingClasses, true);
-      //sr.WriteLine(json);
-      sr.Close();
-
-      /*Building[] buildings = new Building[2];
-      buildings[0] = new Building();
-      buildings[0].a = 5;
-      buildings[0].b = 1.4f;
-
-      buildings[1] = new Building();
-      buildings[1].a = 6;
-      buildings[1].b = 6.4f;*/
-
-      /*List<Building> buildingsList = new List<Building>();
-      Building building1 = new Building();
-      building1.a = 10;
-      building1.b = 10.6f;
-
-      Building building2 = new Building();
-      building2.a = 19;
-      building2.b = 12.99f;
-
-      //buildingsList.Add(new Building(10, 10.6f);
-      //buildingsList.Add(new Building(19, 12.99f);
-      buildingsList.Add(building1);
-      buildingsList.Add(building2);
-
-      Building[] buildings = buildingsList.ToArray();
-
-      var sr = File.CreateText("temp.json");
-      string json = JsonHelper.ToJson(buildings, true);
+      BuildingClassStub[] buildingClasses = buildingClassesList.ToArray();
+      string json = JsonHelper.ToJson(buildingClasses, true);
       sr.WriteLine(json);
-      sr.Close();*/
+      sr.Close();
    }
 }
