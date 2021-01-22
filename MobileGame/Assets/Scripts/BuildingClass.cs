@@ -6,7 +6,6 @@ using System.Linq;
 using UnityEngine.UI;
 using System;
 
-[Serializable]
 public class BuildingClass : MonoBehaviour
 {
     public GameObject specifiedBuilding;
@@ -114,4 +113,40 @@ public class BuildingClass : MonoBehaviour
     {
         startWorkerCost = input;
     }
+
+    public void Deserialize(BuildingClassStub buildingClassStub)
+    {
+      this.specifiedBuilding = buildingClassStub.specifiedBuilding;
+      this.isOwned = buildingClassStub.isOwned;
+      this.type = buildingClassStub.type;
+      this.price = buildingClassStub.price;
+      this.income = buildingClassStub.income;
+      this.workerIncomeIncrease = buildingClassStub.workerIncomeIncrease;
+      this.maxNumOfWorkers = buildingClassStub.maxNumOfWorkers;
+      this.ownedPanelScript = buildingClassStub.ownedPanelScript;
+      this.notOwnedPanelScript = buildingClassStub.notOwnedPanelScript;
+      this.buildingName = buildingClassStub.buildingName;
+      this.buildingImage = buildingClassStub.buildingImage;
+      this.startWorkerCost = buildingClassStub.startWorkerCost;
+   }
+
+   public BuildingClassStub Serialize()
+   {
+      BuildingClassStub buildingClassStub = new BuildingClassStub();
+
+      buildingClassStub.specifiedBuilding = this.specifiedBuilding;
+      buildingClassStub.isOwned = this.isOwned;
+      buildingClassStub.type = this.type;
+      buildingClassStub.price = this.price;
+      buildingClassStub.income = this.income;
+      buildingClassStub.workerIncomeIncrease = this.workerIncomeIncrease;
+      buildingClassStub.maxNumOfWorkers = this.maxNumOfWorkers;
+      buildingClassStub.ownedPanelScript = this.ownedPanelScript;
+      buildingClassStub.notOwnedPanelScript = this.notOwnedPanelScript;
+      buildingClassStub.buildingName = this.buildingName;
+      buildingClassStub.buildingImage = this.buildingImage;
+      buildingClassStub.startWorkerCost = this.startWorkerCost;
+
+      return buildingClassStub;
+   }
 }

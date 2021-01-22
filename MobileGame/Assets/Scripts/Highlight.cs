@@ -82,6 +82,21 @@ public class Highlight : MonoBehaviour
             startProfitforAll = PlayerPrefs.GetFloat("playerCoinsWealth");
             profitInfo.text = startProfitforAll.ToString();
         }
+
+         var components = GameObject.FindObjectsOfType<BuildingClass>();
+         var jsonString = File.ReadAllText("building_classes.json");
+         BuildingClassStub[] buildingClasses = JsonHelper.FromJson<BuildingClassStub>(jsonString);
+         foreach (var buildingClassStub in buildingClasses)
+         {
+            foreach (var component in components)
+            {
+               if (buildingClassStub.buildingName == ((BuildingClass)component).buildingName)
+               {
+                  Debug.Log("Deserialize of building: " + buildingClassStub.buildingName);
+                  ((BuildingClass)component).Deserialize(buildingClassStub);
+               }
+            }
+         }
     }
 
     // void is called once per frame
@@ -359,12 +374,17 @@ public class Highlight : MonoBehaviour
    void OnDestroy()
    {
       var components = GameObject.FindObjectsOfType<BuildingClass>();
+      List<BuildingClassStub> buildingClassesList = new List<BuildingClassStub>();
       var sr = File.CreateText("building_classes.json");
       foreach (var component in components)
       {
-         string json = JsonUtility.ToJson(component, true);
-         sr.WriteLine(json);
+         //string json = JsonUtility.ToJson(component.Serialize(), true);
+         //sr.WriteLine(json);
+         buildingClassesList.Add(((BuildingClass)component).Serialize());
       }
+      BuildingClassStub[] buildingClasses = buildingClassesList.ToArray();
+      string json = JsonHelper.ToJson(buildingClasses, true);
+      sr.WriteLine(json);
       sr.Close();
    }
 }
